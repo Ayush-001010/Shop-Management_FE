@@ -1,0 +1,132 @@
+import type ITableInterface from "../Interface/DashboardInterface";
+import type { IDashboardCardInterface, ITablePropertiesInterface } from "../Interface/DashboardInterface";
+
+export default class ShopInventoryConfig {
+    static readonly cardConfig: Array<IDashboardCardInterface> = [
+        {
+            title: "Number of Products Available",
+            backendURL: "/shopInventory/cardValues?type=TotalNumberOfProduct",
+            type: "count"
+        },
+        {
+            title: "Total Low Stock Products",
+            backendURL: "/shopInventory/cardValues?type=LowStockCount",
+            type: "count"
+        },
+        {
+            title: "Free Inventory Space (in %)",
+            backendURL: "/shopInventory/cardValues?type=AvaliableSpacePercentage",
+            type: "percentage"
+        },
+        {
+            title: "Number of Containers",
+            backendURL: "/shopInventory/cardValues?type=TotalNumberOfContainer",
+            type: "count"
+        },
+        {
+            title: "7-Day Profitability Status",
+            backendURL: "/shopInventory/cardValues?type=ShopStatus",
+            type: "profit&loss"
+        },
+        {
+            title: "Inventory Investment Total",
+            backendURL: "/shopInventory/cardValues?type=CostToBuyProduct",
+            type: "count"
+        },
+        {
+            title: "Projected Inventory Profit",
+            backendURL: "/shopInventory/cardValues?type=ExpectedProfit",
+            type: "count"
+        },
+        {
+            title: "Total Expired Products",
+            backendURL: "/shopInventory/cardValues?type=NumberOfItemExpired",
+            type: "count"
+        }
+    ];
+    static readonly tableColumnConfig: Array<ITableInterface> = [
+        {
+            displayName: "ID",
+            backendName: "ID",
+        },
+        {
+            displayName: "Product Name",
+            backendName: "ProductName",
+        },
+        {
+            displayName: "Product Type",
+            backendName: "ProductType",
+            isHideField: true
+        },
+        {
+            displayName: "Quantity",
+            backendName: "Quantity",
+        },
+        {
+            displayName: "Purchase Price",
+            backendName: "CostToBuy",
+            isHideField: true
+        },
+        {
+            displayName: "Per Item Profit",
+            backendName: "PerItemProfit",
+            isHideField: true
+        },
+        {
+            displayName: "Container Name",
+            backendName: "ContainerName"
+        },
+        {
+            displayName: "Row Number",
+            backendName: "RowNumber"
+        },
+        {
+            displayName: "Column Number",
+            backendName: "ColumnNumber",
+            isHideField: true
+        },
+        {
+            displayName: "Product Height",
+            backendName: "productHeight",
+            isHideField: true
+        },
+        {
+            displayName: "Product Width",
+            backendName: "productWidth",
+            isHideField: true
+        },
+        {
+            displayName: "Running Low Limit",
+            backendName: "LowStockCount",
+            isHideField: true
+        },
+        {
+            displayName: "Expired Date",
+            backendName: "ExpiredDate",
+            isDateField: true
+        },
+        {
+            displayName: "Product Add Date",
+            backendName: "createdAt",
+            isHideField: true,
+            isDateField: true
+        },
+    ];
+    static readonly tableProperties: Array<ITablePropertiesInterface> = [
+        { displayName: "ID", backendName: "ID" },
+        { displayName: "Product Name", backendName: "ProductName" },
+        { displayName: "Product Type", backendName: "ProductType", value: false },
+        { displayName: "Quantity", backendName: "Quantity" },
+        { displayName: "Purchase Price", backendName: "CostToBuy", value: false },
+        { displayName: "Per Item Profit", backendName: "PerItemProfit", value: false },
+        { displayName: "Container Name", backendName: "ContainerName" },
+        { displayName: "Row Number", backendName: "RowNumber" },
+        { displayName: "Column Number", backendName: "ColumnNumber", value: false },
+        { displayName: "Product Height", backendName: "productHeight", value: false },
+        { displayName: "Product Width", backendName: "productWidth", value: false },
+        { displayName: "Running Low Limit", backendName: "LowStockCount", value: false },
+        { displayName: "Expired Date", backendName: "ExpiredDate" },
+        { displayName: "Product Add Date", backendName: "createdAt", value: false }
+    ];
+
+}

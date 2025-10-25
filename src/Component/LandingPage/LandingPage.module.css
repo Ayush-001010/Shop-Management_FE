@@ -1,0 +1,34 @@
+.tryItNowTextCSS{
+    color: #6c757d;
+}
+
+.titleCSS {
+    color: #343a40;
+}
+
+.ButtonCss{
+    background-color: #001233;
+    color: white;
+}
+.ButtonCss:hover {
+    background-color: #001233 !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 500 ;
+}
+
+.OrCSS {
+    color: #6c757d;
+}
+
+.InventoryManagementDivCSS{
+    background-color: #f8f9fa;
+}
+
+.InventoryManagementTextCSS{
+    color: #343a40;
+}
+
+.InventoryManagementIconCSS{
+    color: #212529;
+}

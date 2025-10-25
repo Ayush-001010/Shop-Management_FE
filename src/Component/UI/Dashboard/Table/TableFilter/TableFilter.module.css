@@ -1,0 +1,14 @@
+.selectFieldCss{
+    width: 100%;
+}
+.buttonCss {
+    background-color: #212529;
+    color: #ced4da;
+    border: none;
+    transition: all 0.5s;
+}
+.buttonCss:hover {
+    background-color: #343a40 !important;
+    color: white !important;
+    border: none !important;
+}

@@ -1,0 +1,38 @@
+.deleteButtonCss {
+    background-color: #dc2f02;
+}
+
+.deleteButtonCss i {
+    color: white;
+}
+
+.deleteButtonCss:hover {
+    background-color: #b02a01 !important;
+    border: none !important;
+}
+.shopNumberCss{
+    background-color: #6c757d;
+    color: #ced4da;
+    transition: all 0.3s ease;
+}
+
+.shopNumberCss:hover{
+    background-color: #5a6268 !important;
+    color: #f8f9fa !important;
+}
+
+.deleteButtonCss:disabled {
+    background-color: #e5383b !important;
+    cursor: not-allowed !important;
+}
+
+.errorButtonCss {
+    background-color: #e5383b;
+    color: white;
+}
+
+.errorButtonCss:hover{
+    background-color: #b02a01 !important;
+    color: white !important;
+    border: none !important;
+}

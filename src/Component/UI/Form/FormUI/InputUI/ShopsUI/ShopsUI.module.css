@@ -1,0 +1,35 @@
+.iconCss {
+    font-size: 2rem;
+    color: #6c757d;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.shopCardCss {
+    border: 1px solid #adb5bd;
+    border-radius: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.optionTextCss {
+    color: #adb5bd;
+}
+
+.shopCardCss:hover {
+    border-color: #ade8f4;
+}
+
+.shopCardCss:hover .optionTextCss{
+    color: #ade8f4 !important;
+}
+
+.shopCardCss:hover .iconCss{
+    color: #ade8f4 !important;
+}
+
+.active {
+    border-color: #0096c7 ;
+    color: #0096c7 ;
+}

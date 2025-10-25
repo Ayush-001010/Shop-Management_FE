@@ -1,0 +1,21 @@
+.titleCSS{
+    color: #40916c;
+}
+
+.descriptionCSS{
+    text-align: center;
+    color: #081c15;
+}
+
+.NextStepButtonCSS {
+    background-color: #1a759f;
+    color: #ebf2fa;
+    transition: all 1s;
+}
+
+.NextStepButtonCSS:hover {
+    background-color: #1a759f !important;
+    color: #ebf2fa !important;
+    border: none !important;
+    font-weight: 500;
+}

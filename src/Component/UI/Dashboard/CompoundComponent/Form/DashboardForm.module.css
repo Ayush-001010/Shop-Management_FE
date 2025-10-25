@@ -1,0 +1,14 @@
+.buttonCss{
+    background-color: #6c757d;
+    color: #ced4da;
+    border:none;
+    background-color: #6c757d;
+    width: 12rem;
+}
+
+.buttonCss:hover{
+    background-color: #5a6268 !important;
+    color: white!important;
+    border: none !important;
+    width: 12rem;
+}

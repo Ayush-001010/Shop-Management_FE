@@ -1,0 +1,8 @@
+.helpfulDescriptionCss:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.helpfulDescriptionCss {
+    color: #adb5bd;
+}

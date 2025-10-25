@@ -1,0 +1,38 @@
+.ActioniconCSS {
+    background-color: #ced4da;
+    color: #495057;
+    transition: all 0.5s;
+}
+.ActioniconCSS:hover{
+    cursor: pointer;
+    background-color: #adb5bd;
+    color: #343a40;
+}
+.RowExpandTitle {
+    color: #495057;
+}
+.RowExpandTitle:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.RowExpandValue {
+    color: #6c757d;
+}
+.RowExpandValue:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.bigTextCss:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.statusTextCss {
+    background-color: #ced4da;
+    color: #495057;
+    transition: all 0.5s;
+}
+.statusTextCss:hover{
+    cursor: pointer;
+    background-color: #adb5bd;
+    color: #343a40;
+}

@@ -1,0 +1,12 @@
+.iconCss {
+    color: #adb5bd;
+    transition: all 1s;
+}
+
+.iconCss:hover {
+    color: #6c757d;
+}
+
+.NoDataTextCss{
+    color: #6c757d;
+}

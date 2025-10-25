@@ -1,0 +1,73 @@
+/* Header Text */
+.headerCss {
+    color: #1f2937; /* Tailwind's gray-800 */
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+  }
+  
+  .headerCss:hover {
+    color: #111827; /* Tailwind's gray-900 */
+  }
+  
+  /* Subtext */
+  .welcomeBackTextCss {
+    color: #6b7280; /* Tailwind's gray-500 */
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+    padding: 0.5rem 1rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .welcomeBackTextCss:hover {
+    transform: scale(1.02);
+  }
+  
+  .formContainer {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Label Styling */
+  .label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #374151; /* Tailwind gray-700 */
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Input Styling */
+  .input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #d1d5db; /* Tailwind gray-300 */
+    border-radius: 0.5rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .input:focus {
+    border-color: #3b82f6; /* Tailwind blue-500 */
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    outline: none;
+  }
+  
+  /* Button Styling */
+  .button {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: #3b82f6; /* Tailwind blue-500 */
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #2563eb; /* Tailwind blue-600 */
+  }
+  

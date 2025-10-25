@@ -1,0 +1,17 @@
+.addButtonCSS {
+    border: 1px solid #6c757d;
+    width: 20%;
+    transition: all 1s;
+}
+.addButtonCSS:hover {
+    border: none !important;
+    cursor: pointer !important;
+    background-color: #212529 !important;
+}
+
+.addButtonCSS:hover p{
+    color: white !important;
+}
+.addButtonCSS:hover p i{
+    color: white !important;
+}

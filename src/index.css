@@ -1,0 +1,17 @@
+/* Remove padding from modal content */
+.ant-modal-content {
+    padding: 0 !important;
+  }
+  
+  /* Remove padding from modal body */
+  .ant-modal-body {
+    padding: 0 !important;
+  }
+  
+  /* Optional: remove margin from header/footer if present */
+  .ant-modal-header,
+  .ant-modal-footer {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  

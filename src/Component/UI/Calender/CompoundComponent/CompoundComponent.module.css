@@ -1,0 +1,33 @@
+.CalendarRangeCSS {
+    border : 1px solid #d9d9d9;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 170px;
+}
+.CalendarRangeCSS i {
+    color: #6c757d;
+    font-weight: 600;
+}
+.CalendarRangeCSS p {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    color: #6c757d;
+}
+.CalenderIconCss {
+    border : 1px solid #d9d9d9;
+    border-radius: 6px;
+    width: 30px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CalenderIconCss i{
+    color: #6c757d;
+}

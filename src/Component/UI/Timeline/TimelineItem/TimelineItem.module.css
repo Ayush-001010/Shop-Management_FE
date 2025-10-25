@@ -1,0 +1,60 @@
+.stepNumberCss {
+    border: 1px solid #6c757d;
+    border-radius: 50%;
+    color: #6c757d;
+    transition: all 0.5s ease;
+    font-size: 20px;
+}
+
+.headerCss {
+    color: #495057;
+    transition: color 0.3s ease;
+    font-size: 20px !important;
+}
+
+.textCss {
+    color: #6c757d;
+    transition: color 0.3s ease;
+}
+
+.editTextCss:hover {
+    text-decoration: underline;
+}
+
+
+.timeItemDivCss:hover .stepNumberCss {
+    color: #212529 !important;
+    cursor: pointer;
+    border: 1.2px solid #212529 !important;
+}
+
+.timeItemDivCss:hover .headerCss {
+    color: #212529 !important;
+}
+.timeItemDivCss:hover .textCss {
+    color: #212529 !important;
+}
+
+/* @media screen and (max-width : 600px) {
+    .stepNumberCss {
+        width: 20px ;
+        height: 20px;
+        font-size: 14px;
+    }
+    .headerCss {
+        font-size: 14px;
+        transform: rotate(90deg);
+    }
+    .textCss {
+        font-size: 12px;
+        transform: rotate(90deg);
+    }
+} */
+
+.activeEditClick:hover{
+    cursor: pointer;
+}
+
+.disabledEditClick:hover{
+    cursor:not-allowed;
+}

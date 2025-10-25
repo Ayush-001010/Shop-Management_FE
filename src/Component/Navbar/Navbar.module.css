@@ -1,0 +1,26 @@
+.navbarMainDivCss {
+    border-bottom: 1px #ced4da solid;
+}
+.companyIconCss {
+    color: #495057;
+}
+.CompanyTextCss:hover{
+    cursor: pointer;
+}
+.linkTagCss{
+    text-decoration: none;
+}
+.navLinkTextCss{
+    text-decoration: none !important;
+}
+.userDetailsCSS{
+    background-color: #ced4da;
+    color: #495057;
+}
+.userIconCSS{
+    background-color: #495057;
+    color: #e9ecef;
+}
+.iconCSS{
+    font-weight: 600;
+}

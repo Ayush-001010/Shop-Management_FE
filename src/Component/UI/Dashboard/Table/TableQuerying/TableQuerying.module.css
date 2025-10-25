@@ -1,0 +1,11 @@
+.buttonCss {
+    background-color: #6c757d;
+    color: #ced4da;
+    border: none;
+    transition: all 0.8s;
+}
+.buttonCss:hover {
+    background-color: #5a6268 !important;
+    color: white !important;
+    border: none !important;
+}

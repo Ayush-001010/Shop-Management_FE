@@ -1,0 +1,65 @@
+.CommonBorderColor {
+    border-color: #d9d9d9;
+}
+
+.CalendarHeaderTextCss {
+    color: #6c757d;
+    font-weight: 600;
+    margin: 0;
+}
+
+.CalendarHeaderTitleCss {
+    color: #6c757d;
+    font-weight: 500;
+    margin: 0;
+}
+
+.bookedCss {
+    /* background-color: #80ed99; */
+    width: 100%;
+    height: 100%;
+    border: 1px solid #d9d9d9;
+}
+
+.itemCss {
+    background-color: #80ed99;
+    width: 80%;
+    height: 80%;
+}
+
+.textOfNoDataCss {
+    color: #6c757d;
+    font-weight: 500;
+    margin: 0;
+    padding: 5px;
+}
+
+.normal {
+    background-color: #495057;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    color: #ced4da;
+}
+
+.beforeStart {
+    background-color: #495057;
+    width: 100%;
+    height: 100%;
+    border-radius: 0px 20px 20px 0px;
+    color: #ced4da;
+}
+
+.didNotEnd {
+    background-color: #495057;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px 0px 0px 20px;
+    color: #ced4da;
+}
+.full {
+    background-color: #495057;
+    width: 100%;
+    height: 100%;
+    color: #ced4da;
+}

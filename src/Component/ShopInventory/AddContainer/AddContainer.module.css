@@ -1,0 +1,65 @@
+.headerCSS {
+    background-color: #dee2e6;
+    color: #343a40;
+}
+
+
+.containerDetailsFormHeaderCss {
+    color: #212529;
+    text-decoration: underline;
+}
+
+.labelCSS {
+    color: #343a40;
+}
+
+.labelDescriptionTextCSS {
+    color: #6c757d;
+    font-size: 12px;
+}
+
+
+.textCSS {
+    color: #212529;
+}
+
+.textCSS span {
+    color: #343a40;
+    font-weight: 600;
+}
+
+.SubmitButtonCSS {
+    background-color: #212529;
+    color: #caf0f8;
+    transition: all 0.5s;
+}
+
+.SubmitButtonCSS:hover {
+    background-color: #343a40 !important;
+    color: #caf0f8 !important;
+    border: none !important;
+}
+
+.NoButtonCSS {
+    background-color: #ba181b;
+    color: #ffffff;
+    transition: all 1s;
+}
+
+.NoButtonCSS:hover {
+    background-color: #a4161a !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+.YesButtonCSS{
+    background-color: #40916c;
+    color: #ffffff;
+    transition: all 1s;
+}
+
+.YesButtonCSS:hover{
+    background-color: #2d6a4f !important;
+    color: #ffffff !important;
+    border: none !important;
+}

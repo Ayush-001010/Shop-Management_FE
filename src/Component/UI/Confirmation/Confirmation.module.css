@@ -1,0 +1,23 @@
+.NoButtonCss {
+    background-color: #e5383b;
+    color: #f5f3f4;
+    border: none;
+}
+
+.NoButtonCss:hover {
+    background-color: #e5383b !important;
+    border: none !important;
+    color: #f5f3f4 !important;
+}
+
+.YesButtonCss {
+    background-color: #40916c;
+    color: #d8f3dc;
+    border: none;
+}
+
+.YesButtonCss:hover {
+    background-color: #40916c !important;
+    border: none !important;
+    color: #d8f3dc !important;
+}

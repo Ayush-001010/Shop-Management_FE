@@ -1,0 +1,26 @@
+.iconCss {
+    color: #6c757d;
+    transition: all 0.4s ease;
+}
+
+.iconCss:hover{
+    background-color: #ced4da;
+    color: #212529;
+    cursor: pointer;
+}
+
+.mainDivIconCss{
+    background-color: #dee2e6;
+}
+
+.mainIconCss {
+    color: #495057;
+}
+
+.titleCSS{
+    color: #212529;
+}
+
+.valueCSS{
+    color: #6c757d;
+}
