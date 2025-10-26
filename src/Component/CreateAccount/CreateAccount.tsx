@@ -9,6 +9,9 @@ import useCreateAccount from "../../Services/CustomHook/useCreateAccount";
 import type { IShopDetails } from "../../Services/Interface/CreateAccountInterface";
 import { motion } from 'framer-motion';
 import Review from "./Review/Review";
+import { useDispatch } from "react-redux";
+import { setCurrentFormFields } from "../../Redux/ChatBox";
+import type { IFormFieldInterface } from "../../Services/Interface/FormFieldsInterface";
 
 const CreateAccount: React.FunctionComponent<ICreateAccount> = () => {
     const { genratedInitialValues, genratedFormInitialValues } = useCreateAccount();
@@ -16,6 +19,7 @@ const CreateAccount: React.FunctionComponent<ICreateAccount> = () => {
     const [formInitialValues, setFormInitialValues] = useState<Record<string, any> | undefined>(undefined);
     const [noOfShops, setNoOfShops] = useState<number>(0);
     const [stepValue, setStepValue] = useState(0);
+    const dispatch = useDispatch();
 
     const takingDataFromForm = (data: any, noOfShopsValue?: number) => {
         if (noOfShopsValue === null || noOfShopsValue === undefined) {
@@ -144,6 +148,38 @@ const CreateAccount: React.FunctionComponent<ICreateAccount> = () => {
         const val = genratedInitialValues();
         setValue(val);
     }, [])
+    useEffect(() => {
+        let arr: Array<IFormFieldInterface> = [];
+        switch (stepValue) {
+            case 0: {
+                CreateAccountConfig.formFieldsAccordingToTimeline["OrganizationDetails"].sections.map((section => section.fields)).forEach(fields => {
+                    arr = [...arr, ...fields];
+                })
+                break;
+            }
+            case 1: {
+                CreateAccountConfig.formFieldsAccordingToTimeline["ShopDetails"].sections.map((section => section.fields)).forEach(fields => {
+                    arr = [...arr, ...fields];
+                })
+                break;
+            }
+            case 2: {
+                CreateAccountConfig.formFieldsAccordingToTimeline["ShopUserDetails"].sections.map((section => section.fields)).forEach(fields => {
+                    arr = [...arr, ...fields];
+                })
+                break;
+            }
+            case 3: {
+                CreateAccountConfig.formFieldsAccordingToTimeline["AdminDetails"].sections.map((section => section.fields)).forEach(fields => {
+                    arr = [...arr, ...fields];
+                })
+                break;
+            }
+        }
+        dispatch(setCurrentFormFields({
+            currentFormField: arr
+        }));
+    }, [stepValue])
 
     return (
         <motion.div initial={{ y: '100%', opacity: 0 }}

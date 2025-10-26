@@ -15,10 +15,10 @@ export interface IUserState {
 }
 
 const initialState: IUserState = {
-    userEmail: "aryan@gmail.com",
+    userEmail: "",
     orgnizationDetails: null,
     shopDetails: null,
-    isLogIn: true,
+    isLogIn: false,
     isAdmin: false,
     userImage: "",
     userName: "",

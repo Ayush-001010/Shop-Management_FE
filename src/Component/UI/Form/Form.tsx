@@ -63,7 +63,6 @@ const Form: React.FunctionComponent<IForm> = ({ fieldsDetails, customeFunc, hide
         setInitalVal(initialValues);
     }, [initialValues])
 
-
     return (
         <FormContextUI.Provider value={{ fieldsDetails, options, customeFunc, isRowByRow, addFormItemUINotRequired, openFormConfirmation, decisionHandler, getDependentOptionValue }}>
             <div className="container mt-10">

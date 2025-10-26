@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import type IFormItems from "./IFormItems";
 import LabelUI from "../FormUI/LabelUI/LabelUI";
 import HelpfulDescriptionUI from "../FormUI/LabelUI/HelpfulDescriptionUI/HelpfulDescriptionUI";
@@ -9,12 +9,29 @@ import DateUI from "../FormUI/InputUI/DateUI/DateUI";
 import SelectUI from "../FormUI/InputUI/SelectUI/SelectUI";
 import { useGetFormContextValue } from "../Form";
 import TextAreaUI from "../FormUI/InputUI/TextAreaUI/TextAreaUI";
+import { useDispatch } from "react-redux";
+import { setCurrentFormFieldsError } from "../../../../Redux/ChatBox";
 
 const FormItems: React.FunctionComponent<IFormItems> = ({ items, formik, options }) => {
     const { isRowByRow } = useGetFormContextValue();
+    const dispatch = useDispatch();
 
     const rowByRowFieldCss = useMemo(() => "flex flex-col", []);
     const sideBySideFieldCss = useMemo(() => "flex flex-row pt-1", []);
+
+    useEffect(() => {
+        console.log("Formik ", formik);
+        let errors = {};
+        Object.entries(formik.errors).forEach((val) => {
+            if (formik.touched[val[0]]) {
+                errors = { ...errors, [val[0]]: val[1] };
+            }
+        })
+        dispatch(setCurrentFormFieldsError({
+            currentErrors: errors
+        }))
+    }, [formik])
+
     return (
         <div className="container">
             {items.map(item => {

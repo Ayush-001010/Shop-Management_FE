@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import type IShopCardContent from "./IShopCardContent";
 import LabelUI from "../../../FormUI/LabelUI/LabelUI";
 import SelectUI from "../../../FormUI/InputUI/SelectUI/SelectUI";
@@ -8,9 +8,25 @@ import EmailUI from "../../../FormUI/InputUI/EmailUI/EmailUI";
 import DateUI from "../../../FormUI/InputUI/DateUI/DateUI";
 import dayjs from "dayjs";
 import PasswordUI from "../../../FormUI/InputUI/PasswordUI/PasswordUI";
+import { useDispatch } from "react-redux";
+import { setCurrentFormFieldsError } from "../../../../../../Redux/ChatBox";
 
 const ShopCardContent: React.FunctionComponent<IShopCardContent> = ({ items, formik, shopNumber, options, isUserDetailsRequired }) => {
     const today = dayjs();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+            console.log("Formik ", formik);
+            let errors = {};
+            Object.entries(formik.errors).forEach((val) => {
+                if (formik.touched[val[0]]) {
+                    errors = { ...errors, [val[0]]: val[1] };
+                }
+            })
+            dispatch(setCurrentFormFieldsError({
+                currentErrors: errors
+            }))
+        }, [formik])
     return (
         <div className="container">
             <div className="flex flex-row gap-4">
