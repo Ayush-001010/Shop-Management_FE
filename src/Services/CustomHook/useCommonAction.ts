@@ -7,7 +7,13 @@ const useCommonAction = () => {
         return res;
     };
 
-    return { getUserDetails };
+    const isUserAlreadyLoggedIn = async () => {
+        const apiObj = new APICallingServices();
+        const response = await apiObj.getDataFromBackend("/authentication/isUserAlreadyLoggedIn");
+        return response;
+    }
+
+    return { getUserDetails, isUserAlreadyLoggedIn };
 };
 
 export default useCommonAction;

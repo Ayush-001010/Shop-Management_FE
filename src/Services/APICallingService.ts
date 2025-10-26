@@ -4,7 +4,9 @@ export default class APICallingServices {
     public readonly baseURL: string = "http://localhost:8000";
 
     public readonly getDataFromBackend = async (url: string, data?: any): Promise<{ success: boolean, data: any }> => {
-        const response = await axios.post(this.baseURL + url, data);
+        const response = await axios.post(this.baseURL + url, data, {
+            withCredentials: true
+        });
         return response.data;
     }
     public readonly addDataToBackend = async (url: string, data: any): Promise<{ success: boolean, data: any }> => {

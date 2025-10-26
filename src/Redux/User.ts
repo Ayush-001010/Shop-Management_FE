@@ -31,6 +31,7 @@ export const UserSlice = createSlice({
     initialState,
     reducers: {
         setUserDetails: (state, action) => {
+            console.log("Payload    ",action.payload);
             state.orgnizationDetails = action.payload.orgnizationDetails;
             state.shopDetails = action.payload.ShopDetails;
             state.userID = action.payload.userID;
@@ -39,6 +40,7 @@ export const UserSlice = createSlice({
             state.About = action.payload.About;
             state.isLogIn = true;
             state.isAdmin = true;
+            state.userEmail = action.payload.userEmail
         },
         setUserEmail: (state, action) => {
             state.userEmail = action.payload.userEmail;

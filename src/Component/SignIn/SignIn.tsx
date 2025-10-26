@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import type ISignIn from "./ISignIn";
 import { motion } from 'framer-motion';
 import styles from "./SignIn.module.css";
-import { Button, Input } from "antd";
+import { Button, Input, message } from "antd";
 import type IUserDetailsInterface from "../../Services/Interface/AuthenticationInterface";
 import useAuthenticationAction from "../../Services/CustomHook/useAuthenticationAction";
 import { useDispatch } from "react-redux";
 import { setUserEmail } from "../../Redux/User";
+import CommonConfig from "../../Services/Config/CommonConfig";
 
 
 
@@ -14,6 +15,7 @@ const SignIn: React.FC<ISignIn> = () => {
     const [value, setValue] = useState<IUserDetailsInterface>({ userEmail: "", password: "" });
     const { SignInFunc } = useAuthenticationAction();
     const dispatch = useDispatch();
+    const [messageAPI, contextHandler] = message.useMessage();
 
     const submitHandler = async () => {
         const response = await SignInFunc(value);
@@ -21,6 +23,9 @@ const SignIn: React.FC<ISignIn> = () => {
             const { data } = response;
             dispatch(setUserEmail({ userEmail: value.userEmail, isLogIn: true, isAdmin: data.isAdmin }));
             window.location.href = "#/Home";
+        } else {
+            messageAPI.destroy();
+            messageAPI.error(CommonConfig.errorMessage);
         }
     }
     const changeHandler = (newValue: string, backendName: keyof IUserDetailsInterface) => {
@@ -31,6 +36,7 @@ const SignIn: React.FC<ISignIn> = () => {
 
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 2 }}>
+            {contextHandler}
             <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
                 <div className="text-center mt-10">
                     <h1 className={`text-4xl font-bold mb-2 ${styles.headerCss}`}>Welcome Back !!</h1>

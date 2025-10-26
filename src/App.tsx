@@ -10,7 +10,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import InventoryRequest from './Component/InventoryRequest/InventoryRequest';
 import SignIn from './Component/SignIn/SignIn';
 import Inventory from './Component/Inventory/Inventory';
-import { Provider, useDispatch, useSelector } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { store } from './Redux/Store';
 import useCommonAction from './Services/CustomHook/useCommonAction';
 import { setUserDetails } from './Redux/User';
@@ -22,29 +22,34 @@ import ChatBot from './Component/ChatBot/ChatBot';
 const AnimatedRoutes: React.FC = () => {
   const location = useLocation();
   const dispatch = useDispatch();
-  const { getUserDetails } = useCommonAction();
-  const value = useSelector((state: any) => state.user);
+  const { getUserDetails, isUserAlreadyLoggedIn } = useCommonAction();
+
 
   useEffect(() => {
-    if (value.userEmail) {
-      getUserDetails(value.userEmail).then(response => {
-        if (response.success) {
-          const { OrganizationDetails, ShopDetails, userDetails } = response.data;
-          dispatch(setUserDetails({
-            orgnizationDetails: {
-              orgnizationName: OrganizationDetails.OrganizationName,
-              organizationID: OrganizationDetails.ID,
-            },
-            ShopDetails: ShopDetails,
-            userID: userDetails.ID,
-            userImage: userDetails.userImageURL,
-            userName: userDetails.userName,
-            About: userDetails.About
-          }));
-        }
-      });
-    }
-  }, [value.userEmail]);
+    isUserAlreadyLoggedIn().then((response) => {
+      console.log("Response ", response);
+      if (response.success) {
+        getUserDetails(response.data.userEmail).then(res => {
+          if (response.success) {
+            const { OrganizationDetails, ShopDetails, userDetails } = res.data;
+            dispatch(setUserDetails({
+              orgnizationDetails: {
+                orgnizationName: OrganizationDetails.OrganizationName,
+                organizationID: OrganizationDetails.ID,
+              },
+              ShopDetails: ShopDetails,
+              userID: userDetails.ID,
+              userImage: userDetails.userImageURL,
+              userName: userDetails.userName,
+              About: userDetails.About,
+              userEmail: response.data.userEmail
+            }));
+          }
+        });
+      }
+    });
+  }, [])
+
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
