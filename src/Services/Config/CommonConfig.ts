@@ -25,5 +25,6 @@ export default class CommonConfig {
             window.location.reload();
         }, 2000);
     };
-    static readonly blankUserImage : string = "http://localhost:8000/image/BlankUserProfileImage.jpg";
+    static readonly blankUserImage: string = "http://localhost:8000/image/BlankUserProfileImage.jpg";
+    static readonly socketBaseURL: string = "http://localhost:8000";
 }

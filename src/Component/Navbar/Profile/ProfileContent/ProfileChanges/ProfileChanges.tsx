@@ -2,12 +2,13 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import type IProfileChanges from "./IProfileChanges";
 import { Button, Input, message } from "antd";
 import { useSelector } from "react-redux";
-import APICallingServices from "../../../../../Services/APICallingService";
 import CommonConfig from "../../../../../Services/Config/CommonConfig";
+import useProfileChangeAction from "../../../../../Services/CustomHook/useProfileChangeAction";
 
 
 const ProfileChanges: React.FC<IProfileChanges> = () => {
     const { userImage, userName, userEmail, userID, About } = useSelector((state: any) => state.user);
+    const { userProfilePictureChange, userProfileChange } = useProfileChangeAction();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [previewImage, setPreviewImage] = useState<string>(userImage || "");
     const [name, setName] = useState<string>(userName || "");
@@ -51,26 +52,20 @@ const ProfileChanges: React.FC<IProfileChanges> = () => {
             messageAPI.error("No changes to save");
             return;
         }
-        const apiObj = new APICallingServices();
-        const formData = new FormData();
-        formData.append('userName', name);
-        formData.append('password', changePassword ? password : '');
-        formData.append('About', about);
-        formData.append('ID', userID);
+        let imageURL = userImage;
+        let userName = name;
+        let password = confirmPassword ? confirmPassword : "";
         if (file) {
-            formData.append('image', file);
+            const url = await userProfilePictureChange(file);
+            imageURL = url;
         }
-        if (!file && userImage) {
-            formData.append('userImageURL', userImage);
-        }
-        messageAPI.loading(CommonConfig.loadingMessage, 0);
-        const response = await apiObj.uploadDataWithFileToBackend('/image/upload', formData);
-        messageAPI.destroy();
+        const response = await userProfileChange(userID, userName, imageURL, password , about);
         if (response.success) {
-            messageAPI.success("Profile Updated Successfully");
-            CommonConfig.reloadFunc();
+            setTimeout(() => {
+                location.reload();
+            }, 100)
         } else {
-            messageAPI.error("Failed to update profile");
+            messageAPI.error(CommonConfig.errorMessage);
         }
     };
 

@@ -16,12 +16,17 @@ const RowDescription: React.FC<IRowDescription> = ({ data }) => {
             const str: string = data[key];
             return data[key] ? <span onClick={() => changeHandlerBigTextModal({ open: true, text: data[key], propertyName: title })}>{str.split(" ").slice(0, 4).join(" ") + "..."}</span> : "";
         }
-        return data[key];
+        return data[key] || "NA";
     }
     return (
         <div className="flex justify-between w-full flex-wrap">
             {config?.map((item: ITableInterface) => {
-                const { displayName: title, backendName: key } = item;
+                const { displayName: title, backendName: key , isFormatter , formatterFuncName } = item;
+                if(isFormatter && formatterFuncName){
+                    if(DashboardConfig.hideCols.includes(formatterFuncName)){
+                        return <></>
+                    }
+                }
                 return <div className="w-1/2 flex">
                     <p className={`w-1/2 font-semibold ${styles.RowExpandTitle}`}>{title} </p>
                     <p className="mr-1">:</p>

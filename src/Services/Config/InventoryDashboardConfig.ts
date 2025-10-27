@@ -19,7 +19,6 @@ export default class InventoryDashboardConfig {
         title: "Loss",
         type: "bar"
     }];
-    static readonly cardOptions: Array<string> = ["Number Of Profit Making Shops", "Number Of Loss Making Shops"];
     static readonly columnConfig: Array<ITableInterface> = [
         {
             displayName: "Shop Name",

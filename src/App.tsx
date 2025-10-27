@@ -18,11 +18,13 @@ import ShopInventory from './Component/ShopInventory/ShopInventory';
 import TeamChat from './Component/TeamChat/TeamChat';
 import ECom from './Component/E-Com/E-Com';
 import ChatBot from './Component/ChatBot/ChatBot';
+import useNotificationAction from './Services/CustomHook/useNotificationAction';
 
 const AnimatedRoutes: React.FC = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const { getUserDetails, isUserAlreadyLoggedIn } = useCommonAction();
+  useNotificationAction();
 
 
   useEffect(() => {

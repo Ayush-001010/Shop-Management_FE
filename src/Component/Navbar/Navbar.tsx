@@ -8,6 +8,8 @@ import type INavbarInterface from "../../Services/Interface/NavbarInterface";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import Profile from "./Profile/Profile";
+import { Popover } from "antd";
+import Notification from "./Notification/Notification";
 
 const Navbar: React.FunctionComponent<INavbar> = () => {
     const { isLogIn, userEmail, userImage, userName } = useSelector((state: any) => state.user);
@@ -38,11 +40,13 @@ const Navbar: React.FunctionComponent<INavbar> = () => {
                         </Link>
                     })}
                 </>
-                <div className="mx-1 bg-[#f8f9fa] rounded-4xl">
-                    <p className="m-0 text-xl p-2">
-                        <i className="bi bi-bell" />
-                    </p>
-                </div>
+                <Popover placement="bottom" content={<Notification />}>
+                    <div className="mx-1 bg-[#f8f9fa] rounded-4xl cursor-pointer">
+                        <p className="m-0 text-xl p-2">
+                            <i className="bi bi-bell" />
+                        </p>
+                    </div>
+                </Popover>
                 <div className="my-0 ml-1 p-1 font-medium items-center flex bg-[#f8f9fa] rounded-xl cursor-pointer hover:bg-[#e9ecef]" onClick={openProfileHandler}>
                     <p className="m-0 w-10 h-10 rounded-full overflow-hidden">
                         <img src={(!userImage || userImage.trim().length === 0) ? CommonConfig.blankUserImage : userImage} alt="Profile" className="w-full h-full object-cover" />

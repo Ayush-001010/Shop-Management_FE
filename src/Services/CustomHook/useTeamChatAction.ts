@@ -3,6 +3,7 @@ import APICallingServices from "../APICallingService";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import type { IChatInterface, IChatUserOrGroupInterface } from "../Interface/TeamChatInterface";
+import CommonConfig from "../Config/CommonConfig";
 
 const useTeamChatAction = (currentUser: IChatUserOrGroupInterface | null) => {
     const { userID, userEmail, userName } = useSelector((state: any) => state.user);
@@ -12,7 +13,7 @@ const useTeamChatAction = (currentUser: IChatUserOrGroupInterface | null) => {
     const [pinnedChatPersonDetails, setPinnedChatPersonDetails] = useState<Array<IChatUserOrGroupInterface>>([]);
     const [chats, setChats] = useState<Array<IChatInterface>>([]);
     const [chatsLoading, setChatsLoading] = useState<boolean>(false);
-    const socket = io("http://localhost:8000");
+    const socket = io(CommonConfig.socketBaseURL);
 
     const chatPersonOrGroupSearchHandler = (searchStr: string) => {
         setChatPersonDetails(() => {

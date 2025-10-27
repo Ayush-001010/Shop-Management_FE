@@ -4,6 +4,7 @@ import { useGetDashboardContextValue } from "../../../Dashboard";
 import styles from "../../Grid.module.css";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { Link } from "react-router-dom";
 
 const InventoryDashboardCard: React.FC<IInventoryDashboardCard> = ({ data }) => {
     const { columnConfig, changeHandlerBigTextModal } = useGetDashboardContextValue();
@@ -24,12 +25,12 @@ const InventoryDashboardCard: React.FC<IInventoryDashboardCard> = ({ data }) => 
             </div>
             <div className="flex flex-wrap mt-2 p-1">
                 {columnConfig.map((item) => {
-                    const { backendName, displayName, isBigTextColumn, isHideField } = item;
+                    const { backendName, displayName, isBigTextColumn, isHideField, isFormatter, formatterFuncName } = item;
                     if (isHideField) return;
                     return <p className={`w-1/2 text-xs font-semibold ${styles.InventoryDashboardCardDataCSS} my-1`}>
                         {displayName}:
                         {isBigTextColumn ? <span className={`font-normal ml-1 ${styles.InventoryDashboardCardDataBigTextCSS}`} onClick={() => changeHandlerBigTextModal({ open: true, text: data[backendName], propertyName: displayName })}>{data[backendName].split(" ").splice(0, 4).join(" ") + "..."}</span>
-                            : <span className="font-normal ml-1">{data[backendName]}</span>
+                            : (isFormatter && formatterFuncName === "redirectToShopDetails") ? <Link className="border-none" to={`/Inventory/${data.ID}`}><span className="m-0 ml-1 font-semibold"> <i className="font-bold text-black  text-lg bi bi-shop" /> </span> </Link> : <span className="font-normal ml-1">{data[backendName]}</span>
                         }
                     </p>
                 })}

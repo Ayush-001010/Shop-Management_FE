@@ -26,6 +26,7 @@ export default class APICallingServices {
 
     public readonly uploadFileToS3 = async (url: string, file: File, contentType: string) => {
         try {
+            console.log("Type   ",contentType);
             const response = await axios.put(url, file, {
                 headers: {
                     'Content-Type': contentType,

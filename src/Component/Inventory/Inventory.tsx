@@ -28,7 +28,7 @@ const Inventory: React.FC<IInventory> = () => {
                     </Analytics>
                 </div>
                 <div className="w-60 h-70">
-                    <TextCard value={cardValue.NoOfShops} title="Number Of Shops" isOption={true} optionValue={InventoryDashboardConfig.cardOptions} />
+                    <TextCard value={cardValue.NoOfShops} title="Number Of Shops"/>
                     <TextCard value={cardValue.NoOfProductType} title="Number Of Product" />
                 </div>
             </div>

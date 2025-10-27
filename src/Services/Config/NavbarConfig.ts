@@ -26,10 +26,6 @@ export default class NavbarConfig {
             icon:"bi bi-person-circle"
         },
         {
-            title:"Notifications",
-            icon:"bi bi-bell"
-        },
-        {
             title:"Log Out",
             icon:"bi bi-box-arrow-in-left"
         },

@@ -8,7 +8,7 @@ const BigTextDisplay: React.FC<IBigTextDisplay> = () => {
 
     return (
         <Modal open={openBigTextModal.open} onCancel={() => changeHandlerBigTextModal({ open: false, text: "", propertyName: "" })} footer={null} centered>
-            <div>
+            <div className="p-2">
                 <p className="text-lg font-semibold">{openBigTextModal.propertyName}</p>
                 <p className="font-light">{openBigTextModal.text}</p>
             </div>
