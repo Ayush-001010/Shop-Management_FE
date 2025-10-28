@@ -15,7 +15,7 @@ const SubCategory: React.FC<ISubCategory> = ({ SubCategory, Category }) => {
     }, []);
     return (
         <div className="h-[250px]">
-            {items.map((item) => (<div>
+            {items.map((_) => (<div>
                 <p>Hey !!</p>
             </div>))}
         </div>
