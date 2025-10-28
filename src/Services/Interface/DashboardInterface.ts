@@ -24,6 +24,8 @@ export interface ITableFilterInterface {
     backendName: string;
     option?: Array<IOptionsInterface>;
     backendURL?: string;
+    isDependent?: boolean;
+    dependentFieldName?: string;
 }
 
 export interface ITableConfigInterface {

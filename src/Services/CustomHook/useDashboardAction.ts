@@ -16,6 +16,7 @@ const useDashboardAction = (data: Array<any>, config?: Array<ITableInterface>, t
   const [tableFilterConfig, setTableFilterConfig] = useState<Record<string, Array<IOptionsInterface>>>({});
   const [boardValue, setBoardValue] = useState<Array<Array<any>>>([]);
   const [gridData, setGridData] = useState<Array<any>>([]);
+  const { id } = useParams();
 
   const genrateInitialProperties = () => {
     const arr: Array<ITablePropertiesInterface> = [];
@@ -32,13 +33,15 @@ const useDashboardAction = (data: Array<any>, config?: Array<ITableInterface>, t
     setProperty(arr);
   };
   const hideAndUnHideColumn = (backendName: string, newValue: boolean) => {
+    console.log("Hey ...  ", backendName, " ", newValue, " ", orginalTableConfig);
+    const arr: Array<string> = [];
     setProperty((prevItem: Array<ITablePropertiesInterface>) => {
-      const arr: Array<string> = [];
       prevItem = prevItem.map(item => {
         if (item.backendName === backendName) item.value = newValue;
         if (!item.value) arr.push(item.backendName);
         return item;
       });
+      console.log("Array  ", arr);
       setColumnConfig(orginalTableConfig.filter(item => !arr.includes(item.backendName)).map(ele => { return { ...ele, isHideField: false } }));
       setOrginalConfig(orginalTableConfig.filter(item => !arr.includes(item.backendName)).map(ele => { return { ...ele, isHideField: false } }));
       return prevItem;
@@ -84,7 +87,10 @@ const useDashboardAction = (data: Array<any>, config?: Array<ITableInterface>, t
     const apiObj = new APICallingServices();
     for (const item of tableFilterConfigArr) {
       let opt: Array<IOptionsInterface> = [];
-      if (item.backendURL && item.backendURL.length > 0) {
+      if (item.backendURL && item.backendURL.length > 0 && !item.isDependent) {
+        if (item.backendURL.includes("/shopInventory")) {
+          item.backendURL = item.backendURL + `&ShopID=${id}`;
+        }
         const response = await apiObj.getDataFromBackend(item.backendURL);
         if (response.success) {
           opt = response.data.map((data: any) => ({
@@ -93,13 +99,35 @@ const useDashboardAction = (data: Array<any>, config?: Array<ITableInterface>, t
           }));
           options[item.backendName] = opt;
         }
-      } else if (item.option) {
+      } else if (item.option && !item.isDependent) {
         opt = item.option;
         options[item.backendName] = opt;
+      } else {
+        options[item.backendName] = [];
       }
     }
-    setTableFilterConfig(options);
+    setTableFilterConfig({...options});
   };
+  const getDependentFieldOption = async (config: ITableFilterInterface, value: string) => {
+    const filterConfig: Record<string, Array<IOptionsInterface>> = tableFilterConfig || {};
+    for (const [key, _] of Object.entries(filterConfig)) {
+      if (key === config.backendName && config.backendURL) {
+        if (config.backendURL.includes("/shopInventory")) {
+          config.backendURL = config.backendURL + `&ShopID=${id}&CategoryType=${value}`;
+        }
+        const apiObj = new APICallingServices();
+        const response = await apiObj.getDataFromBackend(config.backendURL);
+        if (response.success) {
+          const opt: Array<IOptionsInterface> = [];
+          for (const item of response.data) {
+            opt.push({ label: item, value: item });
+          }
+          filterConfig[key] = opt;
+        }
+      }
+    }
+    setTableFilterConfig({...filterConfig});
+  }
   const setBoardPropertyFunc = (backendName?: string, value?: boolean) => {
     if (!boardHeaderArr) return;
     const arr: Array<IBoardHeaderInterFace> = boardHeaderArr.map(item => {
@@ -109,16 +137,16 @@ const useDashboardAction = (data: Array<any>, config?: Array<ITableInterface>, t
     });
     setBoardProperty(arr);
   };
-  const changeFieldPropertiesPostion = (oldIndex: number, newIndex: number) => {
+  const changeFieldPropertiesPostion = (currentIndex: number, newIndex: number) => {
     setProperty((prevState: Array<ITablePropertiesInterface>) => {
-      const data = prevState[oldIndex];
-      if (oldIndex < newIndex) {
-        for (let index = oldIndex; index < newIndex; index++) {
+      const data = prevState[currentIndex];
+      if (currentIndex < newIndex) {
+        for (let index = currentIndex; index < newIndex; index++) {
           prevState[index] = prevState[index + 1];
         }
         prevState[newIndex] = data;
       } else {
-        for (let index = oldIndex; index > newIndex; index--) {
+        for (let index = currentIndex; index >= newIndex; index--) {
           prevState[index] = prevState[index - 1];
         }
         prevState[newIndex] = data;
@@ -126,14 +154,14 @@ const useDashboardAction = (data: Array<any>, config?: Array<ITableInterface>, t
       return [...prevState];
     });
     setOrginalConfig((prevState: Array<ITableInterface>) => {
-      const data = prevState[oldIndex];
-      if (oldIndex < newIndex) {
-        for (let index = oldIndex; index < newIndex; index++) {
+      const data = prevState[currentIndex];
+      if (currentIndex < newIndex) {
+        for (let index = currentIndex; index < newIndex; index++) {
           prevState[index] = prevState[index + 1];
         }
         prevState[newIndex] = data;
       } else {
-        for (let index = oldIndex; index > newIndex; index--) {
+        for (let index = currentIndex; index >= newIndex; index--) {
           prevState[index] = prevState[index - 1];
         }
         prevState[newIndex] = data;
@@ -226,7 +254,7 @@ const useDashboardAction = (data: Array<any>, config?: Array<ITableInterface>, t
     }));
   }, [data])
 
-  return { property, gridData, changeHandlerOfGridPosition, changeBoardCardFieldPosition, boardValue, boardProperty, orginalConfig, changeFieldPropertiesPostion, changeBoardPropertiesPosition, setBoardPropertyFunc, orginalTableConfig, hideAndUnHideColumn, columnConfig, genratedBoardOption, tableFilterConfig };
+  return { property, gridData, changeHandlerOfGridPosition, changeBoardCardFieldPosition, boardValue, boardProperty, orginalConfig, changeFieldPropertiesPostion, changeBoardPropertiesPosition, setBoardPropertyFunc, orginalTableConfig, hideAndUnHideColumn, columnConfig, genratedBoardOption, tableFilterConfig, getDependentFieldOption };
 };
 
 export const useDashboardSpecialAction = () => {

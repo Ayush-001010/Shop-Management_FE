@@ -76,6 +76,26 @@ const useShopInventoryDashboardAction = () => {
             setNewContainerName(str);
         }
     }
+    const applyFilterHandler = async (value: Record<string, string>) => {
+        const apiObj = new APICallingServices();
+        const response = await apiObj.getDataFromBackend("/shopInventory/getData", {
+            ShopID: id,
+            type: "filter",
+            ...value
+        });
+        if (response.success) {
+            setData(response.data);
+        }
+    }
+    const searchHandler = async (searchStr: string) => {
+        const apiObj = new APICallingServices();
+        const response = await apiObj.getDataFromBackend("/shopInventory/getData", {
+            type: "search",
+            searchStr
+        });
+        if (response.success && response.data)
+            setData(response.data);
+    }
 
     useEffect(() => {
         genrateNewContainerName();
@@ -84,7 +104,7 @@ const useShopInventoryDashboardAction = () => {
         getDataHandler();
     }, []);
 
-    return { sellTrackingData, addNoteFunc, notes, deleteNoteFunc, getDataHandler, data, newContainerName };
+    return { sellTrackingData, addNoteFunc, notes, deleteNoteFunc, getDataHandler, data, newContainerName, applyFilterHandler, searchHandler };
 };
 
 export default useShopInventoryDashboardAction;

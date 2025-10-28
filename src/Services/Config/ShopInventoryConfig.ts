@@ -1,5 +1,5 @@
 import type ITableInterface from "../Interface/DashboardInterface";
-import type { IDashboardCardInterface, ITablePropertiesInterface } from "../Interface/DashboardInterface";
+import type { IDashboardCardInterface, ITableFilterInterface, ITablePropertiesInterface } from "../Interface/DashboardInterface";
 
 export default class ShopInventoryConfig {
     static readonly cardConfig: Array<IDashboardCardInterface> = [
@@ -54,8 +54,12 @@ export default class ShopInventoryConfig {
             backendName: "ProductName",
         },
         {
-            displayName: "Product Type",
-            backendName: "ProductType",
+            displayName: "Category Type",
+            backendName: "CategoryType"
+        },
+        {
+            displayName: "Sub Category Type",
+            backendName: "SubCategoryType",
             isHideField: true
         },
         {
@@ -78,7 +82,8 @@ export default class ShopInventoryConfig {
         },
         {
             displayName: "Row Number",
-            backendName: "RowNumber"
+            backendName: "RowNumber",
+            isHideField: true
         },
         {
             displayName: "Column Number",
@@ -86,18 +91,8 @@ export default class ShopInventoryConfig {
             isHideField: true
         },
         {
-            displayName: "Product Height",
-            backendName: "productHeight",
-            isHideField: true
-        },
-        {
-            displayName: "Product Width",
-            backendName: "productWidth",
-            isHideField: true
-        },
-        {
-            displayName: "Running Low Limit",
-            backendName: "LowStockCount",
+            displayName: "Minimum Stock Level",
+            backendName: "LowStock",
             isHideField: true
         },
         {
@@ -115,18 +110,40 @@ export default class ShopInventoryConfig {
     static readonly tableProperties: Array<ITablePropertiesInterface> = [
         { displayName: "ID", backendName: "ID" },
         { displayName: "Product Name", backendName: "ProductName" },
-        { displayName: "Product Type", backendName: "ProductType", value: false },
+        { displayName: "Category Type", backendName: "CategoryType" },
+        { displayName: "Sub Category Type", backendName: "SubCategoryType" },
         { displayName: "Quantity", backendName: "Quantity" },
         { displayName: "Purchase Price", backendName: "CostToBuy", value: false },
         { displayName: "Per Item Profit", backendName: "PerItemProfit", value: false },
         { displayName: "Container Name", backendName: "ContainerName" },
-        { displayName: "Row Number", backendName: "RowNumber" },
+        { displayName: "Row Number", backendName: "RowNumber", value: false },
         { displayName: "Column Number", backendName: "ColumnNumber", value: false },
-        { displayName: "Product Height", backendName: "productHeight", value: false },
-        { displayName: "Product Width", backendName: "productWidth", value: false },
-        { displayName: "Running Low Limit", backendName: "LowStockCount", value: false },
+        { displayName: "Minimum Stock Level", backendName: "LowStock", value: false },
         { displayName: "Expired Date", backendName: "ExpiredDate" },
         { displayName: "Product Add Date", backendName: "createdAt", value: false }
     ];
-
+    static readonly tableFilters: Array<ITableFilterInterface> = [
+        {
+            displayName: "Category",
+            backendName: "CategoryType",
+            backendURL: "/shopInventory/getOption?type=Category"
+        },
+        {
+            displayName: "Sub Category",
+            backendName: "SubCategoryType",
+            backendURL: "/shopInventory/getOption?type=SubCategory",
+            isDependent: true,
+            dependentFieldName: "CategoryType"
+        },
+        {
+            displayName: "Container Name",
+            backendName: "ContainerName",
+            backendURL: "/shopInventory/getOption?type=ContainerName"
+        },
+        {
+            displayName: "Product Name",
+            backendName: "ProductName",
+            backendURL: "/shopInventory/getOption?type=ProductName"
+        }
+    ]
 }

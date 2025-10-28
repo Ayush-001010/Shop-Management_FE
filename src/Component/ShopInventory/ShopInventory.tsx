@@ -21,7 +21,7 @@ const ShopInventory: React.FC<IShopInventory> = () => {
     const [shopDetail, setShopDetail] = useState<IShopDetailsInterface | null>(null);
     const [openAddContainerForm, setOpenAddContainerForm] = useState<boolean>(false);
     const [openAddProductForm, setOpenAddProductForm] = useState<boolean>(false);
-    const { sellTrackingData, addNoteFunc, notes, deleteNoteFunc, data , newContainerName } = useShopInventoryDashboardAction();
+    const { sellTrackingData, getDataHandler, addNoteFunc, notes, deleteNoteFunc, data, newContainerName, applyFilterHandler, searchHandler } = useShopInventoryDashboardAction();
 
     const openAddProductFormFunc = () => setOpenAddProductForm(true);
     const closeAddProductFormFunc = () => setOpenAddProductForm(false);
@@ -51,6 +51,25 @@ const ShopInventory: React.FC<IShopInventory> = () => {
             return;
         }
     }
+    const applyFilterHandlerFunc = async (value: Record<string, string>) => {
+        messageAPI.destroy();
+        messageAPI.loading(CommonConfig.loadingMessage);
+        await applyFilterHandler(value);
+        messageAPI.destroy();
+        messageAPI.success({ content: "Successfully Applied!!" });
+    }
+    const getDataHandlerFunc = async () => {
+        messageAPI.destroy();
+        messageAPI.loading(CommonConfig.loadingMessage);
+        await getDataHandler();
+        messageAPI.destroy();
+    }
+    const searchHandlerFunc = async (val: string) => {
+        messageAPI.destroy();
+        messageAPI.loading(CommonConfig.loadingMessage);
+        await searchHandler(val);
+        messageAPI.destroy();
+    }
 
     useEffect(() => {
         if (id && shopDetails) {
@@ -67,14 +86,17 @@ const ShopInventory: React.FC<IShopInventory> = () => {
             </div>
             <AddContainer open={openAddContainerForm} closeHandler={closeAddContainerForm} newContainerName={newContainerName} />
             <AddProduct open={openAddProductForm} closeFunc={closeAddProductFormFunc} />
-            <Dashboard tableConfig={ShopInventoryConfig.tableColumnConfig} tablePropertiesArr={ShopInventoryConfig.tableProperties} deleteNotesHandler={deleteNotesHandler} notes={notes} addNotes={addNotesHandler} sellTrackingData={sellTrackingData} allData={data} cardConfig={ShopInventoryConfig.cardConfig.slice(0, 5)} columnCardConfig={ShopInventoryConfig.cardConfig.slice(5)}>
+            <Dashboard tableFilterConfig={ShopInventoryConfig.tableFilters} searchHandler={searchHandlerFunc} tableConfig={ShopInventoryConfig.tableColumnConfig} tablePropertiesArr={ShopInventoryConfig.tableProperties} deleteNotesHandler={deleteNotesHandler} notes={notes} addNotes={addNotesHandler} sellTrackingData={sellTrackingData} allData={data} cardConfig={ShopInventoryConfig.cardConfig.slice(0, 5)} columnCardConfig={ShopInventoryConfig.cardConfig.slice(5)} applyHandlerOfFilterFunc={applyFilterHandlerFunc} clearHandler={getDataHandlerFunc}>
                 <Dashboard.RowByRowCards />
                 <div className="flex">
                     <Dashboard.SellTracking />
                     <Dashboard.Notes />
                     <Dashboard.ColumnByColumnCards />
                 </div>
-                <Dashboard.Properties/>
+                <div className="flex justify-end">
+                    <Dashboard.Properties />
+                    <Dashboard.TableQuerying />
+                </div>
                 <Dashboard.BigTextModal />
             </Dashboard>
         </div>

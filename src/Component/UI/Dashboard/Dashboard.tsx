@@ -77,6 +77,7 @@ interface IDashboardContext {
     notes?: Array<any>;
     deleteNotesHandler?: (ID: number) => void;
     orginalTableConfig: Array<ITableInterface>;
+    getDependentFieldOptionHandler: (config: ITableFilterInterface, value: string) => Promise<void>
 }
 
 const DashboardContext = createContext<IDashboardContext | undefined>(undefined);
@@ -105,7 +106,7 @@ interface DashboardComponent extends React.FC<IDashboard & { children: ReactNode
 }
 
 const Dashboard: DashboardComponent = ({ children, deleteNotesHandler, notes, addNotes, columnCardConfig, sellTrackingData, cardConfig, clearHandler, deleteHandlerFunc, customFunc, editHandlerFunc, tableFilterConfig, allData: data, boardHeaderArr, boardFilterConfig, boardData, boardCardType, tableConfig, openFormButtonText, tablePropertiesArr, formFields, formTitle, isCreatedForm, formSubmitHandler, applyHandlerOfFilterFunc, initialFormValue, searchHandler, isGridViewNeed }) => {
-    const { property, columnConfig, changeHandlerOfGridPosition, changeBoardCardFieldPosition, changeBoardPropertiesPosition, orginalConfig, gridData, changeFieldPropertiesPostion, hideAndUnHideColumn, setBoardPropertyFunc, boardProperty, tableFilterConfig: filterOptions, boardValue, orginalTableConfig } = useDashboardAction(data, tableConfig, tablePropertiesArr, tableFilterConfig, boardHeaderArr, boardData);
+    const { property, columnConfig, changeHandlerOfGridPosition, changeBoardCardFieldPosition, changeBoardPropertiesPosition, orginalConfig, gridData, changeFieldPropertiesPostion, hideAndUnHideColumn, setBoardPropertyFunc, boardProperty, tableFilterConfig: filterOptions, boardValue, orginalTableConfig, getDependentFieldOption } = useDashboardAction(data, tableConfig, tablePropertiesArr, tableFilterConfig, boardHeaderArr, boardData);
     const [isTableView, setIsTableView] = useState<boolean>(true);
     const [openEditForm, setOpenEditForm] = useState<boolean>(false);
     const [editFormFields, setEditFormFields] = useState<IFormFieldsInterface>();
@@ -153,7 +154,7 @@ const Dashboard: DashboardComponent = ({ children, deleteNotesHandler, notes, ad
     }
 
     return (
-        <DashboardContext.Provider value={{ property, orginalTableConfig, deleteNotesHandler, notes, addNotes, columnCardConfig, sellTrackingData, cardConfig, changeHandlerOfGridPosition, gridData, changeBoardCardFieldPosition, clearButtonApplied, clearHandler: clearHandlerFunc, changeHandlerStatusStepHandler, openStatusStepModal, openBigTextModal, changeHandlerBigTextModal, changeBoardPropertiesPosition, orginalConfig, deleteHandlerFunc, setTableQueryTypeFunc, customFunc, setEditFormTitleHandler, editFormTitle, setEditFormInitialValuesHandler, editFormInitialValues, editFormFields, setEditFormFieldsHandler, openEditFormHandler, openEditForm, closeEditForm, changeFieldPropertiesPostion, boardHeaders: boardProperty, changeBoardHeaderProperties: setBoardPropertyFunc, filterOptions, tableFilterConfig, config: tableConfig, data, changeView, isTableView, boardFilterConfig, hideAndUnHideColumn, initialFormValue, formFields, formTitle, isCreatedForm, openFormButtonText, formSubmitHandler, applyHandlerOfFilterFunc, searchHandler, boardCardType, columnConfig }}>
+        <DashboardContext.Provider value={{ property, orginalTableConfig, deleteNotesHandler, notes, addNotes, columnCardConfig, sellTrackingData, cardConfig, changeHandlerOfGridPosition, gridData, changeBoardCardFieldPosition, clearButtonApplied, clearHandler: clearHandlerFunc, changeHandlerStatusStepHandler, openStatusStepModal, openBigTextModal, changeHandlerBigTextModal, changeBoardPropertiesPosition, orginalConfig, deleteHandlerFunc, setTableQueryTypeFunc, customFunc, setEditFormTitleHandler, editFormTitle, setEditFormInitialValuesHandler, editFormInitialValues, editFormFields, setEditFormFieldsHandler, openEditFormHandler, openEditForm, closeEditForm, changeFieldPropertiesPostion, boardHeaders: boardProperty, changeBoardHeaderProperties: setBoardPropertyFunc, filterOptions, tableFilterConfig, config: tableConfig, data, changeView, isTableView, boardFilterConfig, hideAndUnHideColumn, initialFormValue, formFields, formTitle, isCreatedForm, openFormButtonText, formSubmitHandler, applyHandlerOfFilterFunc, searchHandler, boardCardType, columnConfig, getDependentFieldOptionHandler: getDependentFieldOption }}>
             <div className="m-4">
                 {children}
                 <hr />
