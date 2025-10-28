@@ -7,7 +7,7 @@ export default interface IAddProductInterface {
     Height: number;
     Width: number;
     ExpiredDate: Date | null;
-    position: Array<{ RowNumber: number, ColumnNumber: number, RowIndex: number, ColumnIndex: number }> | undefined;
+    position: Array<{ RowNumber: number, ColumnNumber: number, RowIndex: number, ColumnIndex: number, ContainerName: string, ContainerID: number }> | undefined;
     LowStock: number | null;
     ProductPositioningInfo: string | null;
     ProductImages: Array<File>;

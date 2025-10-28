@@ -4,6 +4,7 @@ import type IAddContainerInterface from "../Interface/ContainerInterface";
 import type { IContainerColumnDetails, IContainerRowDetails } from "../Interface/CreateContainerInterface";
 import type CreateContainerInterface from "../Interface/CreateContainerInterface";
 import type { IContainerDetailsInterface } from "../Interface/ShopDetailsInterface";
+import type IAddProductInterface from "../Interface/AddProductInterface";
 
 const useShopInventoryAction = () => {
     const { id } = useParams();
@@ -81,7 +82,62 @@ const useShopInventoryAction = () => {
         val.reverse();
         return val;
     }
-    return { addContainer, containerDetails, getContainerDetailsAboutSpace, onePerticularContainerDetails, genrateContainerView };
+    const addProductHandler = async (data: IAddProductInterface) => {
+        const apiObj = new APICallingServices();
+        const prdImageURLs: Array<string> = [];
+
+        for (const file of data.ProductImages) {
+            let { name: fileName = "", type: fileType = "" } = file;
+            fileName = "Product/" + fileName;
+            const response = await apiObj.getDataFromBackend("/aws/getURLForUploadFileInS3", {
+                key: fileName,
+                contentType: fileType
+            });
+            if (response.success && response.data) {
+                try {
+                    await apiObj.uploadFileToS3(response.data, file, fileType);
+                    prdImageURLs.push(fileName); // Only push after successful upload
+                    console.log("Uploaded file to S3:", fileName);
+                } catch (uploadError) {
+                    console.error("S3 upload failed for", fileName, uploadError);
+                }
+            } else {
+                console.warn("Failed to get S3 URL for", fileName, response);
+            }
+        }
+
+        const ContainerName: string = (data.position && data.position.length > 0) ? data.position[0].ContainerName : "";
+        const RowNumber: number = (data.position && data.position.length > 0) ? data.position[0].RowNumber : 0;
+        const ColumnNumber: number = (data.position && data.position.length > 0) ? data.position[0].ColumnNumber : 0;
+        const ContainerTableID: number = (data.position && data.position.length > 0) ? data.position[0].ContainerID : 0;
+
+        const response = await apiObj.getDataFromBackend("/shopInventory/addProduct",
+            {
+                ProductName: data.ProductName,
+                CategoryType: data.CategoryType,
+                SubCategoryType: data.SubCategoryType,
+                Quantity: data.Quantity,
+                CostToBuy: data.Cost,
+                PerItemProfit: data.PerItemProfit,
+                ContainerName: ContainerName,
+                RowNumber: RowNumber,
+                ColumnNumber: ColumnNumber,
+                Height: data.Height,
+                Width: data.Width,
+                Depth: data.Depth,
+                LowStock: data.LowStock,
+                ExpiredDate: data.ExpiredDate,
+                ProductImagesURL: prdImageURLs.join("||"),
+                ProductDescription: data.ProductDescription,
+                ProductPositionInfo: data.ProductPositioningInfo,
+                ContainerTableID,
+                ShopDetailID: id
+            }
+        );
+        return response;
+    }
+
+    return { addContainer, addProductHandler, containerDetails, getContainerDetailsAboutSpace, onePerticularContainerDetails, genrateContainerView };
 };
 
 export default useShopInventoryAction;

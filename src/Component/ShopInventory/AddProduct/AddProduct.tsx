@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import type IAddProduct from "./IAddProduct";
-import { Drawer } from "antd";
+import { Drawer, message } from "antd";
 import Header from "./Header/Header";
 import AddProductForm from "./AddProductForm/AddProductForm";
 import Timeline from "./Timeline/Timeline";
 import type IAddProductInterface from "../../../Services/Interface/AddProductInterface";
 import ProductPlacementForm from "./ProductPlacementForm/ProductPlacementForm";
 import Review from "./Review/Review";
+import useShopInventoryAction from "../../../Services/CustomHook/useShopInventoryAction";
+import CommonConfig from "../../../Services/Config/CommonConfig";
 
 const AddProduct: React.FC<IAddProduct> = ({ open, closeFunc }) => {
-    const [currentStep, setCurrentStep] = useState<number>(1);
+    const [messageAPI, contextHandler] = message.useMessage();
+    const { addProductHandler } = useShopInventoryAction();
+    const [currentStep, setCurrentStep] = useState<number>(0);
     const [data, setData] = useState<IAddProductInterface>({
         Cost: 0,
         ExpiredDate: null,
@@ -53,7 +57,7 @@ const AddProduct: React.FC<IAddProduct> = ({ open, closeFunc }) => {
             }
             case 1: {
                 setData((prevState: IAddProductInterface) => {
-                    prevState = { ...prevState, position: value as Array<{ RowNumber: number, ColumnNumber: number, RowIndex: number, ColumnIndex: number }> };
+                    prevState = { ...prevState, position: value as Array<{ RowNumber: number, ColumnNumber: number, RowIndex: number, ColumnIndex: number, ContainerName: string, ContainerID: number }> };
                     return { ...prevState };
                 })
             }
@@ -62,11 +66,24 @@ const AddProduct: React.FC<IAddProduct> = ({ open, closeFunc }) => {
             return prevState + 1;
         });
     }
-    const submitHandler = () => {
+    const submitHandler = async () => {
         console.log("Data   ", data);
+        messageAPI.destroy();
+        messageAPI.loading(CommonConfig.loadingMessage);
+        const response = await addProductHandler(data);
+        messageAPI.destroy();
+        if (response.success) {
+            messageAPI.success({ content: "Successfully Product Added!!" });
+            setTimeout(() => {
+                location.reload();
+            }, 500);
+        } else {
+            messageAPI.error(CommonConfig.errorMessage);
+        }
     }
     return (
         <Drawer open={open} onClose={closeFunc} width={1200} title={<Header />}>
+            {contextHandler}
             <Timeline currentStep={currentStep} />
             <div className="mt-10">
                 {currentStep === 0 && <AddProductForm changeTheStepHandler={changeTheStepHandler} currentStep={currentStep} />}

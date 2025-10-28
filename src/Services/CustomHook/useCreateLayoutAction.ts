@@ -32,7 +32,8 @@ const useCreateLayoutAction = () => {
                 for (const banner of bannerInfo) {
                     const file = banner.File;
                     if (file) {
-                        const { name: fileName = "", type: fileType = "" } = file;
+                        let { name: fileName = "", type: fileType = "" } = file;
+                        fileName = "User_Profile_Images/" + fileName
                         const response = await apiObj.getDataFromBackend("/aws/getURLForUploadFileInS3", {
                             fileName,
                             contentType: fileType
