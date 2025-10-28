@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import userReducer from "./User";
 import ecomReducer from "./ECom";
 import chatboxReducer from "./ChatBox";
-import NotificationReducer from "./notifications";
+import NotificationReducer from "./Notifications";
 
 export const store = configureStore({
   reducer: {
