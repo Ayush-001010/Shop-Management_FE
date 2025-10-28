@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import type IContainerDetailsInterface from "../Interface/ContainerDetailsInterface";
-import type { IProductDetailsInterface, ISerachProductPlaceDetailsInterface } from "../Interface/ContainerDetailsInterface";
+import type { ISerachProductPlaceDetailsInterface } from "../Interface/ContainerDetailsInterface";
 
 const useContainerImageAction = () => {
     const containerHeight = useMemo(() => 510, []);
@@ -42,11 +42,11 @@ const useContainerImageAction = () => {
         }
 
         for (let index = 0; index < productDetails.containerProduct.length; index++) {
-            const { ColumnNumber, RowNumber, WidthE, HeightE, HeightS , WidthS } = productDetails.containerProduct[index];
+            const { ColumnNumber, RowNumber, WidthE, HeightE, HeightS, WidthS } = productDetails.containerProduct[index];
             const prd1: Array<any> = [];
             const oneMeterHeight = containerHeight / height;
             const oneMeterWidth = containerWidth / width;
-            const obj = { ...productDetails.containerProduct[index], Height: oneMeterHeight * (HeightE - HeightS) , Width :  (oneMeterWidth * (WidthE - WidthS))}
+            const obj = { ...productDetails.containerProduct[index], Height: oneMeterHeight * (HeightE - HeightS), Width: (oneMeterWidth * (WidthE - WidthS)) }
             prd1.push(obj);
             for (let index1 = index + 1; index1 < productDetails.containerProduct.length; index1++) {
                 if (productDetails.containerProduct[index1].ColumnNumber === ColumnNumber && productDetails.containerProduct[index1].RowNumber === RowNumber) {

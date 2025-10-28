@@ -59,7 +59,8 @@ const useCreateAccount = () => {
             adminDetails: {
                 adminConfirmPassword: "",
                 adminPassword: "",
-                adminUserName: ""
+                adminUserName: "",
+                adminUserEmail: ""
             }
         };
         return initialValues;
