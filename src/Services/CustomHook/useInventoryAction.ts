@@ -94,7 +94,7 @@ const useInventoryAction = () => {
             setRejectedData(rejectedData);
         }
     };
-    const applyHandlerOfBoardFilterFunc = async (filterValue: any, type: "New" | "InProgress" | "Complete" | "Hold" | "Rejected" | "All") => {
+    const applyHandlerOfBoardFilterFunc = async (filterValue: any, type?: "New" | "InProgress" | "Complete" | "Hold" | "Rejected" | "All") => {
         const apiObj = new APICallingServices();
         const response = await apiObj.getDataFromBackend("/inventory/filterData", { type, filterObj: filterValue });
         if (response.success) {
@@ -110,7 +110,7 @@ const useInventoryAction = () => {
             }
         }
     };
-    const searchHandlerOfBoard = async (searchValue: any, type: "New" | "InProgress" | "Complete" | "Hold" | "Rejected" | "All") => {
+    const searchHandlerOfBoard = async (searchValue: any, type?: "New" | "InProgress" | "Complete" | "Hold" | "Rejected" | "All") => {
         const apiObj = new APICallingServices();
         const response = await apiObj.getDataFromBackend("/inventory/search", { searchValue, type });
         if (response.success) {

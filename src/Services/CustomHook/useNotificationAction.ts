@@ -3,7 +3,7 @@ import CommonConfig from "../Config/CommonConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import type INotificationMessageInterface from "../Interface/NotificationInterface";
-import { setNewMessages } from "../../Redux/notifications";
+import { setNewMessages } from "../../Redux/Notifications";
 
 const useNotificationAction = () => {
     const socket = io(CommonConfig.socketBaseURL);

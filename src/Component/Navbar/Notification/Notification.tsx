@@ -1,8 +1,8 @@
 import React from "react";
 import type INotification from "./INotification";
 import { useSelector } from "react-redux";
-import type { INotificationReduxState } from "../../../Redux/notifications";
 import moment from "moment";
+import type { INotificationReduxState } from "../../../Redux/Notifications";
 
 const Notification: React.FC<INotification> = () => {
     const { messages }: INotificationReduxState = useSelector((state: any) => state.notification);
