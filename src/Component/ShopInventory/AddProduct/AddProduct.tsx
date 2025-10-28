@@ -11,16 +11,21 @@ import Review from "./Review/Review";
 const AddProduct: React.FC<IAddProduct> = ({ open, closeFunc }) => {
     const [currentStep, setCurrentStep] = useState<number>(1);
     const [data, setData] = useState<IAddProductInterface>({
-        Cost: 1000,
+        Cost: 0,
         ExpiredDate: null,
-        Height: 200,
-        PerItemProfit: 5,
-        ProductName: "IPhone",
-        ProductType: "Electronics",
-        Quantity: 100,
-        Width: 200,
+        Height: 0,
+        PerItemProfit: 0,
+        ProductName: "",
+        CategoryType: "",
+        Quantity: 0,
+        Width: 0,
         position: undefined,
-        LowStock: null
+        LowStock: null,
+        ProductDescription: null,
+        ProductPositioningInfo: null,
+        ProductImages: [],
+        Depth: null,
+        SubCategoryType: ""
     });
 
     const changeTheStepHandler = (value: Record<string, any> | Array<{ RowNumber: number, ColumnNumber: number, RowIndex: number, ColumnIndex: number }>) => {
@@ -29,7 +34,7 @@ const AddProduct: React.FC<IAddProduct> = ({ open, closeFunc }) => {
                 value = value as Record<string, any>;
                 setData({
                     ProductName: value.ProductName,
-                    ProductType: value.ProductType,
+                    CategoryType: value.CategoryType,
                     Quantity: value.Quantity,
                     Cost: value.Cost,
                     PerItemProfit: value.PerItemProfit,
@@ -37,7 +42,12 @@ const AddProduct: React.FC<IAddProduct> = ({ open, closeFunc }) => {
                     Width: value.Width,
                     ExpiredDate: value.ExpiredDate,
                     position: undefined,
-                    LowStock: value?.LowStock
+                    LowStock: value?.LowStock,
+                    ProductDescription: value?.ProductDescription,
+                    ProductPositioningInfo: value?.ProductPositioningInfo,
+                    ProductImages: value?.ProductImages,
+                    Depth: value?.Depth,
+                    SubCategoryType: value.SubCategoryType
                 })
                 break;
             }
@@ -52,14 +62,16 @@ const AddProduct: React.FC<IAddProduct> = ({ open, closeFunc }) => {
             return prevState + 1;
         });
     }
-    // console.log("Data   ",data);
+    const submitHandler = () => {
+        console.log("Data   ", data);
+    }
     return (
         <Drawer open={open} onClose={closeFunc} width={1200} title={<Header />}>
             <Timeline currentStep={currentStep} />
             <div className="mt-10">
                 {currentStep === 0 && <AddProductForm changeTheStepHandler={changeTheStepHandler} currentStep={currentStep} />}
                 {currentStep === 1 && <ProductPlacementForm changeTheStepHandler={changeTheStepHandler} />}
-                {currentStep === 2 && <Review />}
+                {currentStep === 2 && <Review submitHandler={submitHandler} />}
             </div>
         </Drawer>
     )

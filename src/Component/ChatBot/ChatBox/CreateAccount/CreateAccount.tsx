@@ -13,9 +13,7 @@ const CreateAccount: React.FC<ICreateAccount> = () => {
 
 
     const optionClickHandler = (option: IChatMessageOptionInterface) => {
-        console.log(currentFormField);
         const arr = option?.callbackFunc(chats, option.text , currentErrors , currentFormField);
-        console.log(arr);
         setChats([...arr]);
     }
     useEffect(() => {

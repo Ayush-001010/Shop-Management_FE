@@ -5,12 +5,14 @@ import { Button } from "antd";
 
 const ContainerView: React.FC<IContainerView> = ({ data, changeTheStepHandler }) => {
     const { genrateContainerView } = useShopInventoryAction();
-    const [containerConfigration, setContainerConfigration] = useState<Array<Array<Array<Array<{ RowNumber: number, ColumnNumber: number, RowIndex: number, ColumnIndex: number }>>>>>([]);
+    const [containerConfigration, setContainerConfigration] = useState<Array<Array<Array<Array<{ RowNumber: number, ColumnNumber: number, RowIndex: number, ColumnIndex: number, ContainerName: string, ContainerID: number }>>>>>([]);
     const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
     const [selectedBoxs, setSelectedBoxs] = useState<Array<{ RowNumber: number, ColumnNumber: number, RowIndex: number, ColumnIndex: number }>>([]);
 
     const reset = () => setSelectedBoxs([]);
-    const mouseDownHandler = (item: { RowNumber: number, ColumnNumber: number, RowIndex: number, ColumnIndex: number }) => {
+
+    console.log("data", data);
+    const mouseDownHandler = (item: { RowNumber: number, ColumnNumber: number, RowIndex: number, ColumnIndex: number, ContainerName: string, ContainerID: number }) => {
         setSelectedBoxs((prevState) => {
             const find = prevState.filter(item1 => {
                 return item1.RowIndex === item.RowIndex && item1.ColumnIndex === item.ColumnIndex && item1.RowNumber === item.RowNumber && item1.ColumnNumber === item.ColumnNumber;
@@ -33,12 +35,13 @@ const ContainerView: React.FC<IContainerView> = ({ data, changeTheStepHandler })
                         return [...prevState, ...arr, item];
                     }
                 }
+                item.ContainerName = data.Name;
+                item.ContainerID = data.ID
                 return [...prevState, item];
             } else {
                 const arr = prevState.filter(item1 => {
                     return !(item1.RowIndex === item.RowIndex && item1.ColumnIndex === item.ColumnIndex && item1.RowNumber === item.RowNumber && item1.ColumnNumber === item.ColumnNumber)
                 });
-                console.log(prevState.length + " " + arr.length);
                 setIsMouseDown(false);
                 return [...arr];
             }
@@ -91,11 +94,11 @@ const ContainerView: React.FC<IContainerView> = ({ data, changeTheStepHandler })
                         <div className="w-auto border-2 bg-[#e9ecef] rounded-lg m-1 border-[#6c757d] p-1">
                             {firstRow.map(row => (
                                 <div className="flex w-full">
-                                    {row.map((cols: Array<{ RowNumber: number, ColumnNumber: number, RowIndex: number, ColumnIndex: number }>, index: number) => {
+                                    {row.map((cols: Array<{ RowNumber: number, ColumnNumber: number, RowIndex: number, ColumnIndex: number, ContainerName: string, ContainerID: number }>, index: number) => {
                                         return (
                                             <>
                                                 <div className="flex">
-                                                    {cols.map((col: { RowNumber: number, ColumnNumber: number, RowIndex: number, ColumnIndex: number }) => (
+                                                    {cols.map((col: { RowNumber: number, ColumnNumber: number, RowIndex: number, ColumnIndex: number, ContainerName: string, ContainerID: number }) => (
                                                         <div className={`m-2 rounded-lg cursor-pointer  ${(selectedBoxs.filter(item => item.RowIndex === col.RowIndex && item.ColumnIndex === col.ColumnIndex && item.RowNumber === col.RowNumber && item.ColumnNumber === col.ColumnNumber)).length === 0 ? "bg-[#adb5bd] hover:bg-[#ced4da]" : "bg-[#6c757d] "}`} onMouseUp={mouseUpHandler}>
                                                             <p className="m-0 w-5 h-5" key={col.ColumnIndex * Math.random()} onMouseDown={() => mouseDownHandler(col)} onMouseEnter={() => mouseEnterHandler(col)}>
                                                             </p>

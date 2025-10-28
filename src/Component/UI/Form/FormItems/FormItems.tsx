@@ -11,6 +11,7 @@ import { useGetFormContextValue } from "../Form";
 import TextAreaUI from "../FormUI/InputUI/TextAreaUI/TextAreaUI";
 import { useDispatch } from "react-redux";
 import { setCurrentFormFieldsError } from "../../../../Redux/ChatBox";
+import ImagesUI from "../FormUI/InputUI/ImagesUI/ImagesUI";
 
 const FormItems: React.FunctionComponent<IFormItems> = ({ items, formik, options }) => {
     const { isRowByRow } = useGetFormContextValue();
@@ -39,6 +40,19 @@ const FormItems: React.FunctionComponent<IFormItems> = ({ items, formik, options
                     {item.fields.map(field => {
                         const { displayName, minDate, textFieldType, cardOptions, backendName, helpfulDescription, placeholder, disabled, maxDate, isMultipleOptionSelect } = field;
                         switch (field.type) {
+                            case "images": {
+                                return (
+                                    <div className={` ${isRowByRow ? rowByRowFieldCss : sideBySideFieldCss}`}>
+                                        <LabelUI>
+                                            <>
+                                                {displayName}
+                                                {helpfulDescription && <HelpfulDescriptionUI description={helpfulDescription} />}
+                                            </>
+                                        </LabelUI>
+                                        <ImagesUI formik={formik} backendName={backendName} />
+                                    </div>
+                                )
+                            }
                             case "text": {
                                 return (
                                     <div className={` ${isRowByRow ? rowByRowFieldCss : sideBySideFieldCss}`}>

@@ -12,7 +12,7 @@ import useMessage from "antd/es/message/useMessage";
 import Review from "./Review/Review";
 
 
-const AddContainer: React.FC<IAddContainer> = ({ open, closeHandler }) => {
+const AddContainer: React.FC<IAddContainer> = ({ open, closeHandler, newContainerName }) => {
     const [rows, setRows] = useState<Array<string>>([]);
     const [messageAPI, contextHandler] = useMessage();
     const [columns, setColumns] = useState<Array<Array<string>>>([]);
@@ -32,7 +32,7 @@ const AddContainer: React.FC<IAddContainer> = ({ open, closeHandler }) => {
 
 
     const submitHandler = async () => {
-        const response = await addContainer(value, rowHeight, columnWidth);
+        const response = await addContainer(value, rowHeight, columnWidth, newContainerName);
         if (response.success) {
             setOpenSuccessModal(true);
         }

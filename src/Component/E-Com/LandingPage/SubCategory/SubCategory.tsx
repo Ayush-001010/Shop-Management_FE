@@ -8,7 +8,6 @@ const SubCategory: React.FC<ISubCategory> = ({ SubCategory, Category }) => {
 
     useEffect(() => {
         getSubCategoryItem(Category, SubCategory).then((response) => {
-            console.log("Response   ", response);
             if (response.success) {
                 setItems(response.data);
             }

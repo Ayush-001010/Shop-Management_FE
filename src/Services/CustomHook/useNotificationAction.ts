@@ -17,7 +17,6 @@ const useNotificationAction = () => {
     }
 
     socket.on("new-notification-recived", data => {
-        console.log("Data   ", data);
         const arr: Array<INotificationMessageInterface> = data.map((item: any) => {
             return {
                 ID: item.ID,

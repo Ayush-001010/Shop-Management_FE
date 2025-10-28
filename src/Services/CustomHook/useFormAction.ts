@@ -221,10 +221,13 @@ const useFormAction = (formFields: IFormFieldsInterface, initVal?: Record<string
                     } else {
                         url += `?type=RowNumber&ContainerID=${dependentFieldValue}`;
                     }
+                } else if (url === "/ecom/getCategoryAndSubCategory") {
+                    url += `?type=SubCategory&Category=${dependentFieldValue}`
                 }
                 const apiObj = new APICallingServices();
                 const response = await apiObj.getDataFromBackend(url, { dependentValue: dependentFieldValue });
                 const { success, data } = response;
+                console.log("Option Data    ", data);
                 if (success) {
                     const opt: Array<IOptionsInterface> = [];
                     if (url.includes("shopInventory")) {
@@ -238,8 +241,14 @@ const useFormAction = (formFields: IFormFieldsInterface, initVal?: Record<string
                             }
                         }
                     } else {
-                        for (const item of data) {
-                            opt.push({ label: item.City, value: item.City });
+                        if (url.includes("getCategoryAndSubCategory")) {
+                            for (const item of data) {
+                                opt.push({ label: item, value: item });
+                            }
+                        } else {
+                            for (const item of data) {
+                                opt.push({ label: item.City, value: item.City });
+                            }
                         }
                     }
                     setOptions((prevState: any) => {

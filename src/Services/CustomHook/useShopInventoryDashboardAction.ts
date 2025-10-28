@@ -7,6 +7,7 @@ const useShopInventoryDashboardAction = () => {
     const [notes, setNotes] = useState<Array<any>>([]);
     const [data, setData] = useState<Array<any>>([]);
     const { id } = useParams();
+    const [newContainerName, setNewContainerName] = useState<string>("");
 
     const getSellTrackingData = async () => {
         const apiObj = new APICallingServices();
@@ -60,14 +61,30 @@ const useShopInventoryDashboardAction = () => {
             setData(response.data);
         }
     }
+    const genrateNewContainerName = async () => {
+        const apiObj = new APICallingServices();
+        const response = await apiObj.getDataFromBackend(`/shopInventory/cardValues?type=TotalNumberOfContainer&shopID=${id}`);
+        if (response.success) {
+            const num = response.data;
+            console.log("Total Number Of Container  ", num);
+            const arr: Array<string> = [
+                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+                "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+            ];
+            const val = num / 26;
+            const str = `${arr[val]}${num % 26 + 1}`;
+            setNewContainerName(str);
+        }
+    }
 
     useEffect(() => {
+        genrateNewContainerName();
         getSellTrackingData();
         getNoteFunc();
         getDataHandler();
     }, []);
 
-    return { sellTrackingData, addNoteFunc, notes, deleteNoteFunc, getDataHandler, data };
+    return { sellTrackingData, addNoteFunc, notes, deleteNoteFunc, getDataHandler, data, newContainerName };
 };
 
 export default useShopInventoryDashboardAction;

@@ -34,9 +34,7 @@ const ProductPlacementForm: React.FC<IProductPlacementForm> = ({ changeTheStepHa
             {selectedContainerID === undefined && <SelectContainer containerDetails={containerDetails} containerSelectHandler={containerSelectHandler} />}
             {selectedContainerID !== undefined && <>
                 <ContainerView data={selectedContainerDetails as IContainerDetailsInterface} changeTheStepHandler={changeTheStepHandler} />
-            </>
-            }
-
+            </>}
         </div>
     )
 };

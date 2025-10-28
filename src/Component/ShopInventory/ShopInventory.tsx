@@ -21,7 +21,7 @@ const ShopInventory: React.FC<IShopInventory> = () => {
     const [shopDetail, setShopDetail] = useState<IShopDetailsInterface | null>(null);
     const [openAddContainerForm, setOpenAddContainerForm] = useState<boolean>(false);
     const [openAddProductForm, setOpenAddProductForm] = useState<boolean>(false);
-    const { sellTrackingData, addNoteFunc, notes, deleteNoteFunc, data } = useShopInventoryDashboardAction();
+    const { sellTrackingData, addNoteFunc, notes, deleteNoteFunc, data , newContainerName } = useShopInventoryDashboardAction();
 
     const openAddProductFormFunc = () => setOpenAddProductForm(true);
     const closeAddProductFormFunc = () => setOpenAddProductForm(false);
@@ -57,6 +57,7 @@ const ShopInventory: React.FC<IShopInventory> = () => {
             takeSpecifyShopDetail();
         }
     }, [id, shopDetails])
+
     return (
         <div className="mt-3 p-3">
             {contextHandler}
@@ -64,7 +65,7 @@ const ShopInventory: React.FC<IShopInventory> = () => {
                 <Header shopName={shopDetail?.shopname || ""} />
                 <HeaderButton openAddProductFormFunc={openAddProductFormFunc} openAddContainerFormFunc={openAddContainerFormFunc} />
             </div>
-            <AddContainer open={openAddContainerForm} closeHandler={closeAddContainerForm} />
+            <AddContainer open={openAddContainerForm} closeHandler={closeAddContainerForm} newContainerName={newContainerName} />
             <AddProduct open={openAddProductForm} closeFunc={closeAddProductFormFunc} />
             <Dashboard tableConfig={ShopInventoryConfig.tableColumnConfig} tablePropertiesArr={ShopInventoryConfig.tableProperties} deleteNotesHandler={deleteNotesHandler} notes={notes} addNotes={addNotesHandler} sellTrackingData={sellTrackingData} allData={data} cardConfig={ShopInventoryConfig.cardConfig.slice(0, 5)} columnCardConfig={ShopInventoryConfig.cardConfig.slice(5)}>
                 <Dashboard.RowByRowCards />

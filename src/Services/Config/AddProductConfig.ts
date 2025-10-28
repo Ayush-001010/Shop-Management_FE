@@ -15,12 +15,21 @@ export default class AddProductConfig {
                         validation: yup.string().required("Product Name is required"),
                     },
                     {
-                        displayName: "Product Type",
-                        backendName: "ProductType",
+                        displayName: "Category Type",
+                        backendName: "CategoryType",
                         type: "select",
                         getOptionFromAPI: true,
                         backendURL: "/master/productType",
-                        validation: yup.string().required("Product Type is required"),
+                        validation: yup.string().required("Category Type is required"),
+                    },
+                    {
+                        displayName: "Sub Category Type",
+                        backendName: "SubCategoryType",
+                        type: "select",
+                        getOptionFromAPI: true,
+                        backendURL: "/ecom/getCategoryAndSubCategory",
+                        validation:yup.string().required("Sub Category is required"),
+                        dependentOptionField:"CategoryType"
                     },
                     {
                         displayName: "Quantity",
@@ -68,6 +77,15 @@ export default class AddProductConfig {
                             .min(1, "Width must be greater than zero"),
                     },
                     {
+                        displayName: "Product Depth (In Centimeter)",
+                        backendName: "Depth",
+                        type: "number",
+                        validation: yup
+                            .number()
+                            .required("Depth is required")
+                            .min(1, "Depth must be greater than zero"),
+                    },
+                    {
                         displayName: "Expired Date",
                         backendName: "ExpiredDate",
                         type: "date",
@@ -80,6 +98,33 @@ export default class AddProductConfig {
                         validation: yup.number().nullable()
                     }
                 ],
+            },
+            {
+                type: "single",
+                fields: [
+                    {
+                        displayName: "Product Description",
+                        backendName: "ProductDescription",
+                        type: "textarea",
+                        getOptionFromAPI: true,
+                        backendURL: "/master/productType",
+                        validation: yup.string().required("Product Type is required"),
+                    },
+                    {
+                        displayName: "Product Positioning Info",
+                        backendName: "ProductPositioningInfo",
+                        type: "textarea",
+                        getOptionFromAPI: true,
+                        backendURL: "/master/productType",
+                        validation: yup.string().required("Product Type is required"),
+                    },
+                    {
+                        displayName: "Product Images",
+                        backendName: "ProductImages",
+                        type: "images",
+                        validation: yup.array().required("Product image is required"),
+                    }
+                ]
             },
         ],
     };

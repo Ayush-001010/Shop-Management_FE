@@ -29,7 +29,6 @@ const AnimatedRoutes: React.FC = () => {
 
   useEffect(() => {
     isUserAlreadyLoggedIn().then((response) => {
-      console.log("Response ", response);
       if (response.success) {
         getUserDetails(response.data.userEmail).then(res => {
           if (response.success) {

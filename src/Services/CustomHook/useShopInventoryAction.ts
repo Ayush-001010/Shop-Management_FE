@@ -8,7 +8,7 @@ import type { IContainerDetailsInterface } from "../Interface/ShopDetailsInterfa
 const useShopInventoryAction = () => {
     const { id } = useParams();
 
-    const addContainer = async (value: IAddContainerInterface, rowHeight: Array<number>, columnWidth: Array<Array<number>>) => {
+    const addContainer = async (value: IAddContainerInterface, rowHeight: Array<number>, columnWidth: Array<Array<number>>, containerName: string) => {
         const noOfRows: Array<IContainerRowDetails> = [];
         for (let index = 0; index < rowHeight.length; index++) {
             const cols: Array<IContainerColumnDetails> = [];
@@ -24,10 +24,11 @@ const useShopInventoryAction = () => {
             })
         }
         const addObj: CreateContainerInterface = {
-            Name: "A",
+            Name: containerName,
             Height: value.height,
             Width: value.width,
-            NoOfRows: noOfRows
+            NoOfRows: noOfRows,
+            Depth: value.depth
         };
 
         const apiObj = new APICallingServices();

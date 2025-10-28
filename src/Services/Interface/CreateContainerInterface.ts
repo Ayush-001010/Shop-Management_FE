@@ -3,6 +3,7 @@ export default interface CreateContainerInterface {
     Height: number;
     Width: number;
     NoOfRows: Array<IContainerRowDetails>;
+    Depth: number;
 }
 
 export interface IContainerRowDetails {

@@ -1,6 +1,6 @@
 export default interface IAddProductInterface {
     ProductName: string;
-    ProductType: string;
+    CategoryType: string;
     Quantity: number;
     Cost: number;
     PerItemProfit: number;
@@ -9,4 +9,9 @@ export default interface IAddProductInterface {
     ExpiredDate: Date | null;
     position: Array<{ RowNumber: number, ColumnNumber: number, RowIndex: number, ColumnIndex: number }> | undefined;
     LowStock: number | null;
+    ProductPositioningInfo: string | null;
+    ProductImages: Array<File>;
+    ProductDescription: string | null;
+    Depth: string | null,
+    SubCategoryType: string | null
 }

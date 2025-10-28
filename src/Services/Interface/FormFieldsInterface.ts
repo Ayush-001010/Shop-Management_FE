@@ -5,7 +5,7 @@ import { Dayjs } from "dayjs";
 export interface IFormFieldInterface {
     displayName: string;
     backendName: string;
-    type: "text" | "email" | "select" | "shops" | "products" | "date" | "textarea" | "password" | "number" | "radio";
+    type: "text" | "email" | "select" | "shops" | "products" | "date" | "textarea" | "password" | "number" | "radio" | "images";
     validation?: any;
     options?: Array<IOptionsInterface>;
     getOptionFromAPI?: boolean;
