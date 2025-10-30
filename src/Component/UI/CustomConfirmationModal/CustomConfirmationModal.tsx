@@ -15,7 +15,7 @@ const CustomConfirmationModal: React.FC<ICustomConfirmationModal> = ({ openModal
                         <p className="border-1 border-[#343a40] text-[#343a40] w-20 rounded-lg h-10 my-0 text-center flex items-center justify-center font-medium hover:bg-[#343a40] hover:text-white">{cancelButtonText}</p>
                     </Button>
                     <Button onClick={confirmationHandler} style={{ padding: 0, margin: 0, border: "none" }}>
-                        <p className="border-1 border-[#343a40] bg-[#344e41] text-white w-30 rounded-lg h-10 my-0 text-center flex items-center justify-center font-medium hover:bg-[#343a40] hover:text-white">{confirmButtonText}</p>
+                        <p className="border-1 border-[#343a40] bg-[#344e41] text-white w-auto p-1 rounded-lg h-10 my-0 text-center flex items-center justify-center font-medium hover:bg-[#343a40] hover:text-white">{confirmButtonText}</p>
                     </Button>
                 </div>
             </div>

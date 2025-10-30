@@ -22,8 +22,8 @@ const PersonCard: React.FC<IPersonCard> = ({ personDetails, isPinned }) => {
     }
 
     return (
-        <div className={"flex justify-between p-1 my-1 cursor-pointer " + (personDetails.ID === currentSelectPerson?.ID ? "bg-[#dee2e6]" : "")}>
-            <div className="flex" onClick={selectPersonHandler}>
+        <div className={"flex justify-between p-1 my-1 cursor-pointer " + (personDetails.ID === currentSelectPerson?.ID ? "bg-[#dee2e6]" : "")} onClick={selectPersonHandler}>
+            <div className="flex">
                 <div className="m-0 w-10 h-10 rounded-full overflow-hidden flex items-center">
                     <img className="w-full h-full object-cover" src={((!userImageURL && !GroupImageURL) || (userImageURL?.trim().length === 0 && GroupImageURL?.trim().length === 0)) ? CommonConfig.blankUserImage : userImageURL || GroupImageURL} alt="User" />
                 </div>

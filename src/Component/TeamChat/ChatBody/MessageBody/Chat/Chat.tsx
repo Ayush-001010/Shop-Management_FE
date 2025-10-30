@@ -110,16 +110,16 @@ const Chat: React.FC<IChat> = ({ details, lastSendBy, sendBy, replyMessage }) =>
                         </Popover>
                     </div>
                     }
-                    <div className="bg-[#ced4da] w-fit p-2 rounded-2xl shadow-sm">
+                    <div className="bg-[#e9ecef] w-fit max-w-80 p-2 rounded-xl shadow-xs">
                         {details.FileURL && <img src={details.FileURL} alt="message" />}
                         <div className="flex items-end justify-end">
                             <p className="text-lg m-0 text-[#212529] font-medium">{details.Message}</p>
                             <p className="my-0 text-xs ml-4 text-[#6c757d]">{moment(details.createdAt).format("DD/MM/YYYY HH:mm")}</p>
                         </div>
                     </div>
-                    {details.SendBy !== userEmail && <div>
+                    {details.SendBy !== userEmail && <div className="flex items-center">
                         <Popover content={() => PopoverContant(false)} trigger={"click"}>
-                            <p>
+                            <p className="m-0">
                                 <i className="bi bi-three-dots-vertical" />
                             </p>
                         </Popover>

@@ -18,9 +18,10 @@ const Footer: React.FC<IFooter> = () => {
     }
     const submitHandler = (event: any) => {
         event.preventDefault();
-        if (newMessage.length > 0) {
+        if (newMessage.length > 0 || file) {
             sendNewMessage(newMessage, currentSelectPerson?.userEmail || "", currentSelectPerson?.userName || "", currentSelectPerson?.GroupID, replyChats.map(item => item.ID), file);
             setNewMessage("");
+            setFile(undefined);
         }
     }
     const changeHandler = useCallback((event: any) => {

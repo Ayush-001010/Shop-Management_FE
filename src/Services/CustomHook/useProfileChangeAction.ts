@@ -6,7 +6,7 @@ const useProfileChangeAction = () => {
         const apiObj = new APICallingServices();
         let { name: fileName = "", type: contentType = "" } = file;
         console.log("Type   ", contentType);
-        const response = await apiObj.getDataFromBackend("/aws/getURLForUploadFileInS3", { key: fileName, contentType });
+        const response = await apiObj.getDataFromBackend("/aws/getURLForUploadFileInS3", { key: `User_Profile_Images/${fileName}`, contentType });
         if (response.success && response.data) {
             try {
                 console.log("Type   ", contentType);

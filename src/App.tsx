@@ -19,12 +19,14 @@ import TeamChat from './Component/TeamChat/TeamChat';
 import ECom from './Component/E-Com/E-Com';
 import ChatBot from './Component/ChatBot/ChatBot';
 import useNotificationAction from './Services/CustomHook/useNotificationAction';
+import { notification } from 'antd';
 
 const AnimatedRoutes: React.FC = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const { getUserDetails, isUserAlreadyLoggedIn } = useCommonAction();
-  useNotificationAction();
+  const [api, contextHandler] = notification.useNotification();
+  useNotificationAction(api);
 
 
   useEffect(() => {
@@ -53,6 +55,7 @@ const AnimatedRoutes: React.FC = () => {
 
   return (
     <AnimatePresence mode="wait">
+      {contextHandler}
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<LandingPage />} />
         <Route path="/createAccount" element={<CreateAccount />} />

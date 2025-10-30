@@ -67,6 +67,7 @@ const useTeamChatAction = (currentUser: IChatUserOrGroupInterface | null) => {
             if (response.success) {
                 const { personDetails, pinnedPersonDetails } = response.data;
                 const grpIds: Array<string> = [];
+                console.log("personDetails  ", personDetails);
                 for (const grp of personDetails) {
                     if (grp?.GroupID)
                         grpIds.push(grp.GroupID);
@@ -134,28 +135,52 @@ const useTeamChatAction = (currentUser: IChatUserOrGroupInterface | null) => {
             setChatsLoading(false);
         }
     };
-    const sendNewMessage = async (message: string, toEmailID: string, RecivedByName: string, groupID?: string, ReplyChatID?: Array<number>, file?: any) => {
+    const sendNewMessage = async (message: string, toEmailID: string, RecivedByName: string, groupID?: string, ReplyChatID?: Array<number>, file?: File) => {
         let FileURL: string | null = null;
         if (file) {
             const apiObj = new APICallingServices();
-            const formData = new FormData();
-            formData.append('image', file);
-            formData.append("type", "Chat");
-            const response = await apiObj.uploadDataWithFileToBackend("/image/upload", formData);
+            let { name: fileName = "", type: fileType = "" } = file;
+            fileName = "TeamChat/" + fileName
+            const response = await apiObj.getDataFromBackend("/aws/getURLForUploadFileInS3", {
+                key: fileName,
+                contentType: fileType
+            });
             if (response.success) {
-                FileURL = response.data;
+                await apiObj.uploadFileToS3(response.data, file, fileType);
+                FileURL = fileName
             }
         }
         if (!groupID) {
             socket.emit("sent-message", { message, toEmailID, fromEmailID: userEmail, RecivedByName, SendByName: userName, ReplyChatID: ReplyChatID?.join(','), FileURL });
-            setChats((prevState) => {
-                const newId = prevState.length === 0 ? 1 : prevState[prevState.length - 1].ID + 1;
-                return [...prevState, {
-                    ID: newId, Message: message, SendBy: userEmail, RecivedBy: toEmailID, createdAt: new Date(), RecivedByName: RecivedByName, SendByName: userName, ReplyChatID: ReplyChatID?.join(",")
-                }]
-            })
+            console.log(chatPersonDetails);
+            setChatPersonDetails((prevState: Array<IChatUserOrGroupInterface>) => {
+                let index = -1;
+                prevState.forEach((ele: IChatUserOrGroupInterface, i: number) => {
+                    if (ele.userEmail === toEmailID) {
+                        index = i;
+                    }
+                });
+                if (index === -1) return prevState;
+                const item = prevState[index];
+                const startArr = prevState.slice(0, index);
+                const endArr = prevState.slice(index + 1, prevState.length);
+                return [item, ...startArr, ...endArr];
+            });
         } else {
             socket.emit("group-message", { message, fromEmailID: userEmail, SentByName: userName, groupID });
+            setChatPersonDetails((prevState: Array<IChatUserOrGroupInterface>) => {
+                let index = -1;
+                prevState.forEach((ele: IChatUserOrGroupInterface, i: number) => {
+                    if (ele.GroupID === groupID) {
+                        index = i;
+                    }
+                });
+                if (index === -1) return prevState;
+                const item = prevState[index];
+                const startArr = prevState.slice(0, index);
+                const endArr = prevState.slice(index + 1, prevState.length);
+                return [item, ...startArr, ...endArr];
+            });
         }
     };
     const createGroup = async (groupName: string, userIDs: Array<string>, groupAbout: string, file: any): Promise<{ success: boolean, data: any }> => {
@@ -196,7 +221,21 @@ const useTeamChatAction = (currentUser: IChatUserOrGroupInterface | null) => {
     }
 
     socket.on("message-recived", data => {
-        // if (!currentUser) return;
+        console.log("Data   ", data);
+        setChatPersonDetails((prevState: Array<IChatUserOrGroupInterface>) => {
+            let index: number = -1;
+            prevState.forEach((item, i) => {
+                if (item.userEmail === data.SendBy) {
+                    index = i;
+                }
+            });
+            console.log(index);
+            if (index === -1) return prevState;
+            const item = prevState[index];
+            const startArr = prevState.slice(0, index);
+            const endArr = prevState.slice(index + 1, prevState.length);
+            return [item, ...startArr, ...endArr];
+        });
         if (data.SendBy === currentUser?.userEmail) {
             setChats((prevState) => {
                 return [...prevState, data]
@@ -204,7 +243,7 @@ const useTeamChatAction = (currentUser: IChatUserOrGroupInterface | null) => {
         } else {
             setChatPersonDetails((prevState) => {
                 prevState.forEach((val) => {
-                    if (val.userEmail === data.SendBy) {
+                    if (val.userEmail === data.By) {
                         val.NoOfNewMessage = val.NoOfNewMessage ? val.NoOfNewMessage + 1 : 1;
                     }
                 })
@@ -222,6 +261,22 @@ const useTeamChatAction = (currentUser: IChatUserOrGroupInterface | null) => {
     })
 
     socket.on("group-recived-messages", data => {
+        console.log("Data   ", data , chatPersonDetails);
+        // groupID
+        setChatPersonDetails((prevState: Array<IChatUserOrGroupInterface>) => {
+            let index: number = -1;
+            prevState.forEach((item, i) => {
+                if (item.GroupID === data.GroupID) {
+                    index = i;
+                }
+            });
+            console.log(index);
+            if (index === -1) return prevState;
+            const item = prevState[index];
+            const startArr = prevState.slice(0, index);
+            const endArr = prevState.slice(index + 1, prevState.length);
+            return [item, ...startArr, ...endArr];
+        });
         setChats((prevState) => {
             return [...prevState, data]
         });
@@ -281,12 +336,21 @@ const useTeamChatAction = (currentUser: IChatUserOrGroupInterface | null) => {
             return [...prevState];
         })
     })
+    socket.on("message-recived-confirm", data => {
+        setChats((prevState) => {
+            return [...prevState, {
+                ...data
+            }]
+        });
+    })
 
     useEffect(() => {
-        getUsersDetails().then(() => {
-        });
-        makeSocketConnection();
-    }, []);
+        if (userEmail) {
+            getUsersDetails().then(() => {
+            });
+            makeSocketConnection();
+        }
+    }, [userEmail]);
 
     return { chatPersonDetails, pinnedChatPersonDetails, pinnedUser, unPinnedUser, getOldChats, chats, sendNewMessage, createGroup, chatsLoading, deleteAllChat, deleteSingleChat, chatTypeFilter, chatPersonOrGroupSearchHandler, clearHandlerOfQuery };
 };
