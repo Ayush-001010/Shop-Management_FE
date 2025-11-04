@@ -4,11 +4,15 @@ import type { IFormFieldInterface } from '../Services/Interface/FormFieldsInterf
 export interface IChatBoxReduxStateInterface {
     currentFormField: Array<IFormFieldInterface>;
     currentErrors: Record<string, string>;
+    isLayoutAlreadyBuild: boolean;
+    openCreateLayoutFunc: boolean;
 }
 
 const initialState: IChatBoxReduxStateInterface = {
     currentFormField: [],
-    currentErrors: {}
+    currentErrors: {},
+    isLayoutAlreadyBuild: false,
+    openCreateLayoutFunc: false
 }
 
 export const ChatBoxSlice = createSlice({
@@ -22,11 +26,20 @@ export const ChatBoxSlice = createSlice({
         setCurrentFormFieldsError: (state, action) => {
             console.log("action ", action.payload);
             state.currentErrors = action.payload.currentErrors;
+        },
+        setIsLayoutAlreadyBuild: (state, action) => {
+            state.isLayoutAlreadyBuild = action.payload.isLayoutAlreadyBuild;
+        },
+        setOpenCreateLayoutFunc: (state, _) => {
+            state.openCreateLayoutFunc = true
+        },
+        setCloseCreateLayoutFunc: (state, _) => {
+            state.openCreateLayoutFunc = false;
         }
     },
 })
 
 
-export const { setCurrentFormFields , setCurrentFormFieldsError } = ChatBoxSlice.actions
+export const { setCurrentFormFields, setCurrentFormFieldsError, setIsLayoutAlreadyBuild, setOpenCreateLayoutFunc, setCloseCreateLayoutFunc } = ChatBoxSlice.actions
 
 export default ChatBoxSlice.reducer

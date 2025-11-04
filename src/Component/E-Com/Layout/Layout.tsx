@@ -1,15 +1,28 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import type ILayout from "./ILayout";
 import { Button } from "antd";
 import CreateLayout from "./CreateLayout/CreateLayout";
+import { useDispatch, useSelector } from "react-redux";
+import { setCloseCreateLayoutFunc, type IChatBoxReduxStateInterface } from "../../../Redux/ChatBox";
 
 const Layout: React.FC<ILayout> = () => {
     const [open, setOpen] = useState<boolean>(false);
+    const { openCreateLayoutFunc }: IChatBoxReduxStateInterface = useSelector((state: any) => state.chatbox);
+    const dispatch = useDispatch();
 
-    const openHandler = () => setOpen(true);
-    const closeHandler = () => {
+    const openHandler = useCallback(() => {
+        setOpen(true);
+    }, []);
+    const closeHandler = useCallback(() => {
+        dispatch(setCloseCreateLayoutFunc({}));
         setOpen(false);
-    }
+    }, []);
+
+    useEffect(() => {
+        if (openCreateLayoutFunc) {
+            setOpen(true);
+        }
+    }, [openCreateLayoutFunc]);
     return (
         <div className="w-full h-full flex justify-center items-center">
             <Button style={{ padding: "0", border: "none", boxShadow: "none" }} onClick={openHandler}>

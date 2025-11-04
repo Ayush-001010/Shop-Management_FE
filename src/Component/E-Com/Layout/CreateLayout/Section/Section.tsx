@@ -114,7 +114,7 @@ const Section: React.FC<ISection> = () => {
             <SectionWiseBar deleteSectionHandler={deleteSectionHandler} data={sectionDetails} />
             {sectionType === "" && <>
                 <Header />
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-2 p-2">
                     {CreateLayoutConfig.sectionOption.map(option => <SectionCard title={option.title} description={option.description} clickHandler={clickHandler} />)}
                 </div>
                 <div className="mt-2 flex justify-end">

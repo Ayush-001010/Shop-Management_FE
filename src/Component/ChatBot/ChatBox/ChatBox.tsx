@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import StartPage from "./StartPage/StartPage";
 import CreateAccount from "./CreateAccount/CreateAccount";
 import SignIn from "./SignIn/SignIn";
+import ECom from "./ECom/ECom";
 
 const ChatBox: React.FC<IChatBox> = () => {
     const url = useLocation().pathname;
@@ -13,6 +14,7 @@ const ChatBox: React.FC<IChatBox> = () => {
             {url === "/" && <StartPage />}
             {url === "/createAccount" && <CreateAccount />}
             {url === "/signIn" && <SignIn />}
+            {url === "/E-Com" && <ECom />}
         </div>
     )
 };

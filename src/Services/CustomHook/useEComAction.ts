@@ -9,6 +9,7 @@ import CommonConfig from "../Config/CommonConfig";
 import { setLayoutSchema, setReduxState } from "../../Redux/ECom";
 import type { IItemLayoutItemface } from "../Interface/LayoutInterface";
 import type ISectionLayoutInterface from "../Interface/LayoutInterface";
+import { setIsLayoutAlreadyBuild } from "../../Redux/ChatBox";
 
 const useEComAction = (messageAPI: MessageInstance) => {
     const shopDetails: Array<IShopDetailsInterface> = useSelector((state: any) => state.user.shopDetails);
@@ -33,15 +34,18 @@ const useEComAction = (messageAPI: MessageInstance) => {
             const apiObj = new APICallingServices();
             const response = await apiObj.getDataFromBackend("/layout/checkLayoutIsAlreadyPresent", { organizationId: orgnizationDetails?.organizationID, shopId: currentShop });
             if (response.success) {
+                dispatch(setIsLayoutAlreadyBuild({ isLayoutAlreadyBuild: response.data }));
                 setIsLayoutExist(response.data);
                 return response.data;
             } else {
                 setIsLayoutExist(undefined);
+                dispatch(setIsLayoutAlreadyBuild({ isLayoutAlreadyBuild: false }));
                 return false;
             }
         } catch (error) {
             console.error("Error checking layout existence:", error);
             setIsLayoutExist(undefined);
+            dispatch(setIsLayoutAlreadyBuild({ isLayoutAlreadyBuild: false }));
             return false;
         }
     }, [orgnizationDetails, shopDetails, currentShop]);
@@ -102,7 +106,7 @@ const useEComAction = (messageAPI: MessageInstance) => {
     const getSubCategoryItem = useCallback(async (Category: string, SubCategory: string) => {
         try {
             const apiObj = new APICallingServices();
-            const response = await apiObj.getDataFromBackend("/ecom/getSubCateegoryItem", { Category, SubCategory, shopID: currentShop , pageNo : 0});
+            const response = await apiObj.getDataFromBackend("/ecom/getSubCateegoryItem", { Category, SubCategory, shopID: currentShop, pageNo: 0 });
             return response;
         } catch (error) {
             console.log("Error  ", error);
