@@ -7,6 +7,7 @@ import type ISectionLayoutInterface from "../../../Services/Interface/LayoutInte
 import Banners from "./Banners/Banners";
 import Category from "./Category/Category";
 import SubCategory from "./SubCategory/SubCategory";
+import Items from "./Items/Items";
 
 const LandingPage: React.FC<ILandingPage> = () => {
     const { sectionSchema }: IEcomReduxState = useSelector((state: any) => state.ecom);
@@ -33,7 +34,7 @@ const LandingPage: React.FC<ILandingPage> = () => {
     }, []);
     useEffect(() => {
         const totalCurrentViewPortHeight: number = window.innerHeight;
-        console.log(" Total Current View Port Height !! ", totalCurrentViewPortHeight);
+        // console.log(" Total Current View Port Height !! ", totalCurrentViewPortHeight);
         if (sectionSchema) {
             let currentHeightOfSection = 0;
             const currentSectionViewArray: Array<ISectionLayoutInterface> = [];
@@ -65,10 +66,11 @@ const LandingPage: React.FC<ILandingPage> = () => {
                     break;
                 }
             }
-            console.log("Current Height of Section  ", currentHeightOfSection, "    ", currentSectionViewArray, "   ", sectionSchema)
+            // console.log("Current Height of Section  ", currentHeightOfSection, "    ", currentSectionViewArray, "   ", sectionSchema)
             setSections(currentSectionViewArray || []);
         }
     }, [sectionSchema])
+
     return (
         <div className="p-1">
             <SearchBar />
@@ -82,6 +84,9 @@ const LandingPage: React.FC<ILandingPage> = () => {
                     }
                     case "Sub-Category": {
                         return <SubCategory Category={(section?.Category && section?.Category?.length > 0) ? section?.Category[0] : ""} SubCategory={section.SubCategory || ""} />
+                    }
+                    case "Items": {
+                        return <Items />
                     }
                     default: return null;
                 }

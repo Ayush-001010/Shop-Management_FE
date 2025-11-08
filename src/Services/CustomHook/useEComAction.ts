@@ -97,7 +97,10 @@ const useEComAction = (messageAPI: MessageInstance) => {
         switch (type) {
             case "Category": {
                 const apiObj = new APICallingServices();
-                const response = apiObj.getDataFromBackend("/ecom/getCategoryAndSubCategoryForLandingPage");
+                const response = apiObj.getDataFromBackend("/ecom/getCategoryAndSubCategoryForLandingPage",{
+                    shopID:currentShop,
+                    type:"Category"
+                });
                 return response;
             }
         }

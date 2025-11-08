@@ -4,8 +4,10 @@ import { Input } from "antd";
 
 const SearchBar: React.FC<ISearchBar> = () => {
     return (
-        <div>
-            <Input.Search />
+        <div className="flex justify-center items-center">
+            <div className="w-xl">
+                <Input.Search />
+            </div>
         </div>
     )
 };
