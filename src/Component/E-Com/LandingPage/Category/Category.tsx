@@ -50,7 +50,7 @@ const Category: React.FC<ICategory> = ({ UIType }) => {
     }, [categorys]);
 
     return (
-        <div className="h-[250px] mt-12">
+        <div className=" mt-12">
             <div ref={scrollContainerRef} className="w-full flex overflow-x-auto">
                 {displayCategorys.map((category, index) => {
                     switch (UIType) {

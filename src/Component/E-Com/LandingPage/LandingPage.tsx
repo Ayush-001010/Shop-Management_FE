@@ -67,9 +67,12 @@ const LandingPage: React.FC<ILandingPage> = () => {
                 }
             }
             // console.log("Current Height of Section  ", currentHeightOfSection, "    ", currentSectionViewArray, "   ", sectionSchema)
-            setSections(currentSectionViewArray || []);
+            setSections( sectionSchema || []);
         }
-    }, [sectionSchema])
+    }, [sectionSchema]);
+
+    console.log("Section    ",sections);
+
 
     return (
         <div className="p-1">

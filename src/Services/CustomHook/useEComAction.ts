@@ -105,17 +105,17 @@ const useEComAction = (messageAPI: MessageInstance) => {
             }
         }
         return { success: false };
-    }
+    };
     const getSubCategoryItem = useCallback(async (Category: string, SubCategory: string) => {
         try {
             const apiObj = new APICallingServices();
-            const response = await apiObj.getDataFromBackend("/ecom/getSubCateegoryItem", { Category, SubCategory, shopID: currentShop, pageNo: 0 });
+            const response = await apiObj.getDataFromBackend("/ecom/getSubCategoryItem", { Category, SubCategory, shopID: currentShop, pageNo: 0 });
             return response;
         } catch (error) {
             console.log("Error  ", error);
             return { success: false }
         }
-    }, [currentShop])
+    }, [currentShop]);
 
     useEffect(() => {
         const options = getShopNameOptions();
