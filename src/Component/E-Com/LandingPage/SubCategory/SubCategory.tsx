@@ -13,7 +13,6 @@ const SubCategory: React.FC<ISubCategory> = ({ SubCategory, Category }) => {
 
     useEffect(() => {
         getSubCategoryItem(Category, SubCategory).then((response) => {
-            console.log("Response   ", response);
             const arr: Array<IItemInterface> = [];
             for (const data of response.data) {
                 data.ProductImagesURL = data.ImageURLs;
@@ -23,7 +22,6 @@ const SubCategory: React.FC<ISubCategory> = ({ SubCategory, Category }) => {
         })
     }, []);
 
-    console.log("Item Schema    ", items , itemSchema?.UIType);
 
     return (
         <div className="h-auto p-1">

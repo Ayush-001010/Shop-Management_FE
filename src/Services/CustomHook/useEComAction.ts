@@ -97,9 +97,9 @@ const useEComAction = (messageAPI: MessageInstance) => {
         switch (type) {
             case "Category": {
                 const apiObj = new APICallingServices();
-                const response = apiObj.getDataFromBackend("/ecom/getCategoryAndSubCategoryForLandingPage",{
-                    shopID:currentShop,
-                    type:"Category"
+                const response = apiObj.getDataFromBackend("/ecom/getCategoryAndSubCategoryForLandingPage", {
+                    shopID: currentShop,
+                    type: "Category"
                 });
                 return response;
             }
@@ -116,6 +116,15 @@ const useEComAction = (messageAPI: MessageInstance) => {
             return { success: false }
         }
     }, [currentShop]);
+    const getSearchItems = useCallback(async (searchStr: string) => {
+        const apiObj = new APICallingServices();
+        const response = await apiObj.getDataFromBackend("/ecom/getSearchItems", {
+            searchStr,
+            shopID: currentShop
+        });
+        console.log(response);
+        return response;
+    }, [currentShop])
 
     useEffect(() => {
         const options = getShopNameOptions();
@@ -139,7 +148,7 @@ const useEComAction = (messageAPI: MessageInstance) => {
         return () => clearTimeout(obj);
     }, [currentShop]);
 
-    return { shopNameOpt, islayoutExist, currentShop, changeHandlerForShopSelect, getCategoryAndSubCategoryForLandingPage, getSubCategoryItem };
+    return { shopNameOpt, islayoutExist, currentShop, changeHandlerForShopSelect, getCategoryAndSubCategoryForLandingPage, getSubCategoryItem, getSearchItems };
 };
 
 export default useEComAction;

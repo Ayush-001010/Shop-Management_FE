@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import type ILandingPage from "./ILandingPage";
 import { useSelector } from "react-redux";
 import type { IEcomReduxState } from "../../../Redux/ECom";
-import SearchBar from "./SearchBar/SearchBar";
 import type ISectionLayoutInterface from "../../../Services/Interface/LayoutInterface";
 import Banners from "./Banners/Banners";
 import Category from "./Category/Category";
 import SubCategory from "./SubCategory/SubCategory";
 import Items from "./Items/Items";
+import TopSection from "./TopSection/TopSection";
 
 const LandingPage: React.FC<ILandingPage> = () => {
     const { sectionSchema }: IEcomReduxState = useSelector((state: any) => state.ecom);
@@ -71,12 +71,9 @@ const LandingPage: React.FC<ILandingPage> = () => {
         }
     }, [sectionSchema]);
 
-    console.log("Section    ",sections);
-
-
     return (
         <div className="p-1">
-            <SearchBar />
+            <TopSection />
             {sections?.map((section: ISectionLayoutInterface) => {
                 switch (section.SectionType) {
                     case "Banner": {

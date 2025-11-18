@@ -67,7 +67,6 @@ const AddProduct: React.FC<IAddProduct> = ({ open, closeFunc }) => {
         });
     }
     const submitHandler = async () => {
-        console.log("Data   ", data);
         messageAPI.destroy();
         messageAPI.loading(CommonConfig.loadingMessage);
         const response = await addProductHandler(data);
