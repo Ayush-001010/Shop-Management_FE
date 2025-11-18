@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import type ISearchBar from "./ISearchBar";
 import { motion } from 'framer-motion';
 import { useGetEcomContext } from "../../../E-Com";
@@ -10,7 +10,8 @@ const SearchBar: React.FC<ISearchBar> = () => {
     const { getSearchItems } = useGetEcomContext();
     const [suggestions, setSuggestions] = useState<Array<string>>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [recentSearchStr, setRecentSearchStr] = useState<Array<string>>([]);
+    // const [recentSearchStr, setRecentSearchStr] = useState<Array<string>>([]);
+    const recentSearchStr = useMemo(() => [],[]);
     const [isFocused, setIsFocused] = useState<boolean>(false);
 
 
