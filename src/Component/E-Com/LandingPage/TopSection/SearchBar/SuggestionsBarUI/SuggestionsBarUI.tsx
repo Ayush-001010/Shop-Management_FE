@@ -14,11 +14,11 @@ const SuggestionsBarUI: React.FC<ISuggestionsBarUI> = ({
         new RegExp(`(${searchStr})`, "gi")
       );
       return (
-        <p className="p-2 text-[#495057] cursor-pointer hover:bg-[#dee2e6] w-full font-medium m-0">
+        <p className="p-2 text-[#6c757d] cursor-pointer hover:bg-[#dee2e6] w-full font-medium m-0 bg-[#e9ecef] border-b-1 mt-1">
           {arr.map((item: string, index: number) => {
             if (item.toLowerCase().includes(searchStr.toLowerCase()))
               return (
-                <span key={index} className="font-medium text-[#212529]">
+                <span key={index} className="font-semibold text-[#212529]">
                   {item}
                 </span>
               );
@@ -35,15 +35,15 @@ const SuggestionsBarUI: React.FC<ISuggestionsBarUI> = ({
       <div className="absolute top-0 left-0 w-full bg-[#f8f9fa] shadow-lg rounded-md overflow-hidden">
         {/* Recent values - fixed section */}
         {recentValues.length > 0 && (
-          <div className="py-2 border-b border-[#dee2e6]">
-            <p className="text-lg text-[#212529] font-normal m-0 mx-2">
+          <div>
+            <p className="text-lg text-center text-[#495057] text-shadow-sm font-semibold m-0 m-2">
               Recent
             </p>
-            <div className="flex flex-wrap px-2 mt-2">
+            <div className="flex flex-wrap">
               {recentValues.map((recent, index) => (
                 <p
                   key={index}
-                  className="bg-[#212529] m-1 p-2 cursor-pointer rounded-full text-sm text-[#e9ecef]"
+                  className="p-2 text-[#495057] cursor-pointer hover:bg-[#dee2e6] w-full font-medium m-0 bg-[#e9ecef] border-b-1"
                   onClick={() => recentSelectHandler(recent)}
                 >
                   {recent}
@@ -54,11 +54,14 @@ const SuggestionsBarUI: React.FC<ISuggestionsBarUI> = ({
         )}
 
         {/* Suggestions - scrollable section */}
-        <div className="max-h-60 overflow-y-auto flex flex-col items-start justify-center">
+        <div className="max-h-60 overflow-y-auto flex flex-col items-start justify-center mt-1">
           {isLoading && (
             <p className="p-2 text-[#6c757d] font-medium m-0">Loading...</p>
           )}
-          {suggestions.map((suggestion: string, index: number) =>
+          {!isLoading && <p className="text-lg w-full text-center text-[#495057] text-shadow-sm font-semibold m-0 m-2">
+            Suggestions
+          </p>}
+          {suggestions.map((suggestion: string, _: number) =>
             genratedSuggestionString(suggestion)
           )}
         </div>

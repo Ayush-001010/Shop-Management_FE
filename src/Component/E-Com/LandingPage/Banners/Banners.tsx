@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Banners: React.FC<IBanners> = ({ imageURLs }) => {
-    var settings = {
+    const settings = {
         dots: true,
         infinite: true,
         speed: 500,
@@ -14,23 +14,26 @@ const Banners: React.FC<IBanners> = ({ imageURLs }) => {
         // autoplay: true,
         // autoplaySpeed: 2000,
     };
+
     return (
-        <div className="h-[450px] p-2">
+        <div className="h-[450px]">
             <Slider {...settings}>
-                {imageURLs.map(url => (
-                    <div className="w-full h-[450px] bg-gray-100 flex items-center justify-center overflow-hidden">
+                {imageURLs.map((url, index) => (
+                    <div
+                        key={index}
+                        className="w-full h-[350px] bg-gray-100 flex items-center justify-center overflow-hidden"
+                    >
                         <img
                             src={url}
-                            alt="image"
-                            className="object-contain"
-                            style={{ maxHeight: '100%', width: '100%' }}
+                            alt="banner"
+                            className="w-full h-full object-cover"
                             loading="lazy"
                         />
                     </div>
                 ))}
             </Slider>
         </div>
-    )
+    );
 };
 
 export default Banners;

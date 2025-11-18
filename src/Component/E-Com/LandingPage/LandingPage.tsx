@@ -72,7 +72,7 @@ const LandingPage: React.FC<ILandingPage> = () => {
     }, [sectionSchema]);
 
     return (
-        <div className="p-1">
+        <div>
             <TopSection />
             {sections?.map((section: ISectionLayoutInterface) => {
                 switch (section.SectionType) {
