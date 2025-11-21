@@ -20,6 +20,7 @@ import ECom from './Component/E-Com/E-Com';
 import ChatBot from './Component/ChatBot/ChatBot';
 import useNotificationAction from './Services/CustomHook/useNotificationAction';
 import { notification } from 'antd';
+import ProductItemDashboard from './Component/E-Com/ProductItemDashboard/ProductItemDashboard';
 
 const AnimatedRoutes: React.FC = () => {
   const location = useLocation();
@@ -65,6 +66,7 @@ const AnimatedRoutes: React.FC = () => {
         <Route path="/Inventory/:id" element={<ShopInventory />} />
         <Route path="/TeamConnect" element={<TeamChat />} />
         <Route path="/E-Com" element={<ECom />} />
+        <Route path="/E-Com/:ShopId/Category/:Category" element={<ProductItemDashboard />} />
       </Routes>
     </AnimatePresence>
   );
