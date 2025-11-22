@@ -25,11 +25,14 @@ export const EComSlice = createSlice({
         setLayoutSchema: (state, action) => {
             state.sectionSchema = action.payload.sectionSchema;
             state.itemSchema = action.payload.itemSchema;
+        },
+        setItemSchema: (state, action) => {
+            state.itemSchema = action.payload.itemSchema;
         }
     },
 })
 
 
-export const { setReduxState, setLayoutSchema } = EComSlice.actions
+export const { setReduxState, setLayoutSchema , setItemSchema } = EComSlice.actions
 
 export default EComSlice.reducer

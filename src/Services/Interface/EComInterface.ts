@@ -22,6 +22,9 @@ export interface IItemInterface {
     ProductImagesURL?: Array<string> | null;
     ProductDescription: string;
     ProductPositionInfo: string;
+    PerItemPrice: string,
+    CompanyName: string,
+    SubCategory: string,
     createdAt?: Date;
     updatedAt?: Date;
 }

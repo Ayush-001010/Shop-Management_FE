@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import type IPriceRangeType from "./IPriceRangeType";
 import Header from "../../Header/Header";
 import { Slider } from "antd";
-import useProjectItemDashboardAction from "../../../../../../Services/CustomHook/useProjectItemDashboardAction";
 import DotLoader from "../../../../../UI/Loader/DotLoader/DotLoader";
+import useProductItemDashboardAction from "../../../../../../Services/CustomHook/useProductItemDashboardAction";
 
 const PriceRangeType: React.FC<IPriceRangeType> = () => {
-    const { getFilterItems } = useProjectItemDashboardAction();
+    const { getFilterItems } = useProductItemDashboardAction();
     const [value, setValue] = useState<Array<number>>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [range , setRange] = useState<{ min: number, max: number }>({ min: 0, max: 0 });
+    const [range, setRange] = useState<{ min: number, max: number }>({ min: 0, max: 0 });
 
     const changeHandler = (val: Array<number>) => {
         setValue(val);
@@ -17,7 +17,6 @@ const PriceRangeType: React.FC<IPriceRangeType> = () => {
     useEffect(() => {
         setIsLoading(true);
         getFilterItems("Category_Price_Range").then((response: { success: boolean, data?: any }) => {
-            console.log("Response for Category_Price_Range:", response);
             const { min, max } = response?.data || { min: 0, max: 0 };
             setValue([min / max, max]);
             setIsLoading(false);
@@ -25,10 +24,14 @@ const PriceRangeType: React.FC<IPriceRangeType> = () => {
         });
     }, [])
     return (
-        <div>
+        <div className="my-1">
             <Header text={"Price"} />
             {isLoading && <DotLoader />}
-            {!isLoading && <Slider range marks={{ 0: range.min, 100 : range.max }} value={value} onChange={changeHandler}/>}
+            {!isLoading && (
+                <div className="p-2 w-3xs">
+                    <Slider range marks={{ 0: range.min, 100: range.max }} value={value} onChange={changeHandler} />
+                </div>
+            )}
         </div>
     )
 };

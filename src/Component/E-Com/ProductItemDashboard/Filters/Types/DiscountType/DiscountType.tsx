@@ -15,27 +15,24 @@ const DiscountType: React.FC<IDiscountType> = () => {
     }
 
     return (
-        <div>
+        <div className="my-1">
             <Header text="Discount" />
-            <div>
-                <div>
+            <div className="p-2">
+                <div className="flex">
                     <Checkbox onChange={(e) => changeHandler(e.target.checked, "10")} />
-                    <p>10%</p>
+                    <p className="text-center mx-2 my-0 font-medium text-[#495057]">10%</p>
                 </div>
-
-                <div>
+                <div className="flex">
                     <Checkbox onChange={(e) => changeHandler(e.target.checked, "25")} />
-                    <p>25%</p>
+                    <p className="text-center mx-2 my-0 font-medium text-[#495057]">25%</p>
                 </div>
-
-                <div>
+                <div className="flex">
                     <Checkbox onChange={(e) => changeHandler(e.target.checked, "50")} />
-                    <p>50%</p>
+                    <p className="text-center mx-2 my-0 font-medium text-[#495057]">50%</p>
                 </div>
-
-                <div>
+                <div className="flex">
                     <Checkbox onChange={(e) => changeHandler(e.target.checked, "75")} />
-                    <p>75%</p>
+                    <p className="text-center mx-2 my-0 font-medium text-[#495057]">75%</p>
                 </div>
             </div>
         </div>

@@ -4,18 +4,20 @@ import Header from "../../Header/Header";
 import { Radio } from "antd";
 
 const NewArrivalType: React.FC<INewArrivalType> = () => {
-    const [value , setValue] = useState<string>();
+    const [value, setValue] = useState<string>();
 
-    const changeHandler = (event : any) => setValue(event.target.value);
+    const changeHandler = (event: any) => setValue(event.target.value);
 
     return (
-        <div>
+        <div className="my-1">
             <Header text="New Arrival" />
-            <Radio.Group onChange={changeHandler} value={value} options={[
-                {value : "15", label: "Last 15 Days"},
-                {value : "30", label: "Last 30 Days"},
-                {value : "60", label: "Last 60 Days"},
-            ]}/>
+            <div className="p-2">
+                <Radio.Group style={{ display: "flex", flexDirection: "column" }} onChange={changeHandler} value={value} options={[
+                    { value: "15", label: <p className="text-center mx-2 my-0 font-medium text-[#495057]">Last 15 Days</p> },
+                    { value: "30", label: <p className="text-center mx-2 my-0 font-medium text-[#495057]">Last 30 Days</p> },
+                    { value: "60", label: <p className="text-center mx-2 my-0 font-medium text-[#495057]">Last 60 Days</p> },
+                ]} />
+            </div>
         </div>
     )
 };
