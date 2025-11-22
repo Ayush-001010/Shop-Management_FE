@@ -1,17 +1,18 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import type ISearchBar from "./ISearchBar";
 import { motion } from 'framer-motion';
-import { useGetEcomContext } from "../../../E-Com";
 import SuggestionsBarUI from "./SuggestionsBarUI/SuggestionsBarUI";
 
 const SearchBar: React.FC<ISearchBar> = () => {
     const [isSearch, setIsSearch] = useState<boolean>(false);
     const [searchStr, setSearchStr] = useState<string>("");
-    const { getSearchItems } = useGetEcomContext();
+    const getSearchItems = (_: string) => {
+        return { success: false, data: [] };
+    };
     const [suggestions, setSuggestions] = useState<Array<string>>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     // const [recentSearchStr, setRecentSearchStr] = useState<Array<string>>([]);
-    const recentSearchStr = useMemo(() => [],[]);
+    const recentSearchStr = useMemo(() => [], []);
     const [isFocused, setIsFocused] = useState<boolean>(false);
 
 
@@ -76,7 +77,7 @@ const SearchBar: React.FC<ISearchBar> = () => {
                 <div className="flex justify-end w-full items-center">
                     <div className="mx-1 w-full ">
                         <motion.div initial={{ opacity: 0, translateX: 20 }} animate={{ opacity: 1, translateX: 0 }} exit={{ opacity: 0, translateX: 20 }} transition={{ duration: 0.6, ease: "easeOut" }}>
-                            <input className="w-full border-1 h-10 rounded-lg border-[#ced4da] p-1" value={searchStr} onBlur={onBlurHandler} onFocus={onFocusedHandler} onChange={onChangeHandler} placeholder="Type the product you're looking for…"/>
+                            <input className="w-full border-1 h-10 rounded-lg border-[#ced4da] p-1" value={searchStr} onBlur={onBlurHandler} onFocus={onFocusedHandler} onChange={onChangeHandler} placeholder="Type the product you're looking for…" />
                             {(suggestions.length > 0 || isLoading || (isFocused && recentSearchStr.length > 0)) && <SuggestionsBarUI suggestions={suggestions} isLoading={isLoading} searchStr={searchStr} recentValues={recentSearchStr} recentSelectHandler={recentSelectHandler} />}
                         </motion.div>
                     </div>

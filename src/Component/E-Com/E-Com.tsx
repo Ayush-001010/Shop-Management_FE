@@ -8,7 +8,6 @@ import LandingPage from "./LandingPage/LandingPage";
 interface IEComContext {
     getCategoryAndSubCategoryForLandingPage: (type: "Category" | "SubCategory") => Promise<{ success: boolean, data?: any }>;
     getSubCategoryItem: (Category: string, SubCategory: string) => Promise<{ success: boolean, data?: any }>;
-    getSearchItems: (searchStr: string) => Promise<{ success: boolean, data: any }>;
     currentShopID: number | null;
 };
 
@@ -26,10 +25,10 @@ export const useGetEcomContext = () => {
 
 const ECom: React.FC<IECom> = () => {
     const [messageAPI, contextHandler] = message.useMessage();
-    const { shopNameOpt, islayoutExist, currentShop, changeHandlerForShopSelect, getCategoryAndSubCategoryForLandingPage, getSubCategoryItem, getSearchItems } = useEComAction(messageAPI);
+    const { shopNameOpt, islayoutExist, currentShop, changeHandlerForShopSelect, getCategoryAndSubCategoryForLandingPage, getSubCategoryItem } = useEComAction(messageAPI);
 
     return (
-        <EComContext.Provider value={{ getCategoryAndSubCategoryForLandingPage, getSubCategoryItem , getSearchItems , currentShopID : currentShop }} >
+        <EComContext.Provider value={{ getCategoryAndSubCategoryForLandingPage, getSubCategoryItem, currentShopID: currentShop }} >
             <div className="w-full h-screen">
                 {contextHandler}
                 <div className="flex justify-end">

@@ -7,7 +7,7 @@ import Banners from "./Banners/Banners";
 import Category from "./Category/Category";
 import SubCategory from "./SubCategory/SubCategory";
 import Items from "./Items/Items";
-import TopSection from "./TopSection/TopSection";
+import TopSection from "../TopSection/TopSection";
 
 const LandingPage: React.FC<ILandingPage> = () => {
     const { sectionSchema }: IEcomReduxState = useSelector((state: any) => state.ecom);
